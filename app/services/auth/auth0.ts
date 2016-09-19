@@ -41,7 +41,7 @@ export class auth0Service {
                         res(result.access_token);
                     }
                     else{
-                        rej(response.content.toJSON());
+                        err(response.content.toJSON());
                     }
                 }, (e) => {
                     err(e);

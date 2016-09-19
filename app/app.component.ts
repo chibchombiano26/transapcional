@@ -1,17 +1,23 @@
 import {Component} from "@angular/core";
-import {auth0Service} from "./services/auth/index";
+import {auth0Service, WPService} from "./services/index";
 import {User} from "./models/index";
+import {HtmlView} from "ui/html-view";
+import {DatePicker} from "ui/date-picker";
+
 
 @Component({
     selector: "my-app",
     templateUrl: "app.component.html",
-    providers :[auth0Service],
+    providers: [auth0Service, WPService],
+    
 })
 export class AppComponent {
+
+    public htmlString: string;
     public counter: number = 16;
 
-    constructor(private auth0 : auth0Service) {
-        
+    constructor(private auth0 : auth0Service, private wp:WPService) {
+        this.htmlString = '<span><h1>HtmlView demo in <font color="blue">NativeScript</font> App</h1></span>';
     }
 
     public get message(): string {
@@ -34,6 +40,10 @@ export class AppComponent {
             console.log(profile);
         })*/
 
-        this.auth0.register(_user);
+        //this.auth0.register(_user);
+
+        this.wp.getPost("corporate-black").then((post)=>{
+            this.htmlString = post[0].content.rendered;
+        })
     }
 }
