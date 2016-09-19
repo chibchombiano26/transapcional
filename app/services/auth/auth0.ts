@@ -14,38 +14,69 @@ export class auth0Service {
 
 
 
- login(user:User) : Promise<any> {
- 
-      let _data = {
-            
-            "client_id": this.clientId,
-            "username": user.email,
-            "password": user.password,            
-            "connection": "transapcional",
-            "grant_type": "password",
-            "scope": "openid"            
-      };
+    login(user:User) : Promise<any> {
+    
+        let _data = {
+                
+                "client_id": this.clientId,
+                "username": user.email,
+                "password": user.password,            
+                "connection": "transapcional",
+                "grant_type": "password",
+                "scope": "openid"            
+        };
 
 
-      let promise = new Promise((res, err)=>{
+        let promise = new Promise((res, err)=>{
 
+                http.request({
+                    url: "https://hefesoftsas.auth0.com/oauth/ro",
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    content: JSON.stringify(_data)
+                }).then((response) => {
+                    let result = response.content.toJSON();
+                    res(result.access_token);
+                }, (e) => {
+                    err(e);
+                });
+
+        })
+
+        return promise;
+
+    }
+
+    getProfile(token){
+        let promise = new Promise((res,rej)=>{
             http.request({
-                url: "https://hefesoftsas.auth0.com/oauth/ro",
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                content: JSON.stringify(_data)
-            }).then((response) => {
-               let result = response.content.toJSON();
-               res(result);
+                url: "https://hefesoftsas.auth0.com/userinfo",
+                method: "GET",
+                headers: { "authorization": "Bearer " + token }                
+            }).then((response) => {                
+               res(response.content.toJSON());
             }, (e) => {
-                 err(e);
+                 rej(e);
             });
+        })
 
-      })
+        return promise;
+    }
 
-      return promise;
+    getUser(user:User){
+        
+        let promise = new Promise((res, rej)=>{
 
- }
+            this.login(user).then((token)=>{
+                this.getProfile(token).then((profile)=>{
+                    res(profile);
+                })
+            })
+
+        })
+
+        return promise;
+    }
 
   
   register(user:User) : Promise<any> {      
@@ -58,18 +89,17 @@ export class auth0Service {
       };
 
 
-      let promise = new Promise((res, err)=>{
+      let promise = new Promise((res, rej)=>{
 
             http.request({
                 url: "https:///hefesoftsas.auth0.com/dbconnections/signup",
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 content: JSON.stringify(_data)
-            }).then((response) => {
-                // result = response.content.toJSON();
-               console.log(response);
+            }).then((response) => {                
+               res(response.content.toJSON());
             }, (e) => {
-                 console.log(e);
+                 rej(e);
             });
 
 

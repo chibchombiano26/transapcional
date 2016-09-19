@@ -10,7 +10,7 @@ import {User} from "./models/index";
 export class AppComponent {
     public counter: number = 16;
 
-    constructor(private aut0 : auth0Service) {
+    constructor(private auth0 : auth0Service) {
         
     }
 
@@ -23,11 +23,15 @@ export class AppComponent {
     }
     
     public onTap() {
-        this.counter--;
+        this.counter--;        
         let _user = new User();
-        _user.email = "";
-        _user.password = "";
+        
+        _user.email = "futbolito152@gmail.com";
+        _user.password = "iguazo262";
 
-        this.aut0.login(_user);
+        this.auth0.getUser(_user).then((profile)=>{
+            //Information of the user
+            console.log(profile.email);
+        })
     }
 }
