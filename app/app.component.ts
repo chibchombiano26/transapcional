@@ -29,9 +29,11 @@ export class AppComponent {
         _user.email = "futbolito152@gmail.com";
         _user.password = "iguazo262";
 
-        this.auth0.getUser(_user).then((profile)=>{
+        /*this.auth0.getUser(_user).then((profile)=>{
             //Information of the user
-            console.log(profile.email);
-        })
+            console.log(profile);
+        })*/
+
+        this.auth0.register(_user);
     }
 }

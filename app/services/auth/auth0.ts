@@ -34,9 +34,15 @@ export class auth0Service {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     content: JSON.stringify(_data)
-                }).then((response) => {
-                    let result = response.content.toJSON();
-                    res(result.access_token);
+                }).then((response) => {                    
+                    let code = response.content.toJSON().statusCode;
+                    if(code==200){
+                        let result = response.content.toJSON();
+                        res(result.access_token);
+                    }
+                    else{
+                        rej(response.content.toJSON());
+                    }
                 }, (e) => {
                     err(e);
                 });
@@ -83,8 +89,8 @@ export class auth0Service {
     
       let _data = {
           "client_id": "zO8W3NvBiUMrqTwEAo6w9tYefEPCWm9n",
-          "email": "futbolito1528@gmail.com",
-          "password": "iguazo262",
+          "email": user.email,
+          "password": user.password,
           "connection": "transapcional"
       };
 
@@ -92,12 +98,19 @@ export class auth0Service {
       let promise = new Promise((res, rej)=>{
 
             http.request({
-                url: "https:///hefesoftsas.auth0.com/dbconnections/signup",
+                url: "https://hefesoftsas.auth0.com/dbconnections/signup",
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 content: JSON.stringify(_data)
-            }).then((response) => {                
-               res(response.content.toJSON());
+            }).then((response) => {         
+                let code = response.content.toJSON().statusCode;
+                if(code==200){
+                    res(response.content.toJSON());
+                }
+                else{
+                    rej(response.content.toJSON());
+                }       
+               
             }, (e) => {
                  rej(e);
             });
