@@ -1,16 +1,16 @@
 import {Component} from "@angular/core";
-import {RegisteService} from "./services/auth/index";
+import {auth0Service} from "./services/auth/index";
 import {User} from "./models/index";
 
 @Component({
     selector: "my-app",
     templateUrl: "app.component.html",
-    providers :[RegisteService],
+    providers :[auth0Service],
 })
 export class AppComponent {
     public counter: number = 16;
 
-    constructor(private register : RegisteService) {
+    constructor(private aut0 : auth0Service) {
         
     }
 
@@ -28,6 +28,6 @@ export class AppComponent {
         _user.email = "";
         _user.password = "";
 
-        this.register.login(_user);
+        this.aut0.login(_user);
     }
 }

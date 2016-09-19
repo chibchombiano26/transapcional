@@ -4,19 +4,26 @@ var http = require("http");
 
 
 @Injectable()
-export class RegisteService {
+export class auth0Service {
+
+    clientId:string = "zO8W3NvBiUMrqTwEAo6w9tYefEPCWm9n";
+
+
+    constructor() {
+    }
+
+
 
  login(user:User) : Promise<any> {
  
       let _data = {
-            "client_id": "zO8W3NvBiUMrqTwEAo6w9tYefEPCWm9n",
-            "username": "futbolito152@gmail.com",
-            "password": "iguazo262",
-            "id_token": null,
+            
+            "client_id": this.clientId,
+            "username": user.email,
+            "password": user.password,            
             "connection": "transapcional",
             "grant_type": "password",
-            "scope": "openid",
-            "device": null
+            "scope": "openid"            
       };
 
 
@@ -28,10 +35,10 @@ export class RegisteService {
                 headers: { "Content-Type": "application/json" },
                 content: JSON.stringify(_data)
             }).then((response) => {
-                // result = response.content.toJSON();
-               console.log(response);
+               let result = response.content.toJSON();
+               res(result);
             }, (e) => {
-                 console.log(e);
+                 err(e);
             });
 
       })
