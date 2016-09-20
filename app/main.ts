@@ -5,9 +5,10 @@ import {LoginComponent} from "./components/index";
 import { AppComponent } from "./app.component";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { NgModule } from "@angular/core";
+import {onsesignal} from './vendors/onesignal';
 
-var onesignal = require("./vendors/onesignal");
-onesignal.initalize();
+let _onsesignal = new onsesignal();
+_onsesignal.initalize();
 
 
 @NgModule({    
