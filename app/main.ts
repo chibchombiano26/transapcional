@@ -6,6 +6,10 @@ import { AppComponent } from "./app.component";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { NgModule } from "@angular/core";
 
+var onesignal = require("./vendors/onesignal");
+onesignal.initalize();
+
+
 @NgModule({    
     bootstrap: [AppComponent],
     declarations: [

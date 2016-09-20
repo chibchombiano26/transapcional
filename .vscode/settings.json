@@ -3,7 +3,8 @@
   "files.exclude": {
   "**/.git": true,
   "**/.DS_Store": true,
-  "**/**/*.js": true,
+  "models/**/*.js": true,
+  "services/**/*.js": true,
   "**/**/*.js.map": true,  
   "rethinkdb_data/**" : true
   }
