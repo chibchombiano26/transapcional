@@ -1,11 +1,15 @@
 // this import should be first in order to load some required settings (like globals and reflect-metadata)
 import { platformNativeScriptDynamic, NativeScriptModule } from "nativescript-angular/platform";
+import { NativeScriptFormsModule } from "nativescript-angular/forms";
 import { routes, routableComponents } from "./app.routes";
 import {LoginComponent} from "./components/index";
 import { AppComponent } from "./app.component";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { NgModule } from "@angular/core";
+
 import {onsesignal} from './vendors/onesignal';
+
+
 
 let _onsesignal = new onsesignal();
 _onsesignal.initalize();
@@ -21,6 +25,7 @@ _onsesignal.initalize();
     [
         NativeScriptModule,
         NativeScriptRouterModule,
+        NativeScriptFormsModule,
         NativeScriptRouterModule.forRoot(routes)
     ],
 })

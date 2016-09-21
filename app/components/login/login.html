@@ -1,0 +1,10 @@
+<StackLayout #container>
+  
+<TextField #email hint="Email Address" keyboardType="email" [(ngModel)]="user.email"
+  autocorrect="false" autocapitalizationType="none"></TextField>
+<TextField #password hint="Password" secure="true"   [(ngModel)]="user.password"></TextField>
+
+  <Button text="Ingresar" class="submit-button" (tap)="submit()"></Button>
+   
+     
+</StackLayout>

@@ -11,9 +11,6 @@ export class auth0Service {
 
     constructor() {
     }
-
-
-
     login(user:User) : Promise<any> {
     
         let _data = {
@@ -25,10 +22,7 @@ export class auth0Service {
                 "grant_type": "password",
                 "scope": "openid"            
         };
-
-
         let promise = new Promise((res, err)=>{
-
                 http.request({
                     url: "https://hefesoftsas.auth0.com/oauth/ro",
                     method: "POST",
@@ -46,9 +40,7 @@ export class auth0Service {
                 }, (e) => {
                     err(e);
                 });
-
         })
-
         return promise;
 
     }
@@ -70,9 +62,7 @@ export class auth0Service {
     }
 
     getUser(user:User){
-        
         let promise = new Promise((res, rej)=>{
-
             this.login(user).then((token)=>{
                 this.getProfile(token).then((profile)=>{
                     res(profile);
