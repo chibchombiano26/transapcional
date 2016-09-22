@@ -21,6 +21,7 @@
     "@angular/router": "3.0.0",
     "nativescript-angular": "1.0.0",
     "nativescript-onesignal": "^1.0.4",
+    "nativescript-telerik-ui": "^1.4.1",
     "reflect-metadata": "^0.1.8",
     "tns-core-modules": "2.3.0"
   },

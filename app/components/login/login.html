@@ -1,3 +1,4 @@
+<GridLayout>
 <StackLayout #container>
   
 <TextField #email hint="Email Address" keyboardType="email" [(ngModel)]="user.email"
@@ -6,5 +7,7 @@
 
   <Button text="Ingresar" class="submit-button" (tap)="submit()"></Button>
    
-     
+  
 </StackLayout>
+<ActivityIndicator [busy]="isLoading" visibility='visible'  horizontalAlignment="center" verticalAlignment="center"></ActivityIndicator>
+<GridLayout>

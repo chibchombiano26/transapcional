@@ -3,6 +3,7 @@ import { platformNativeScriptDynamic, NativeScriptModule } from "nativescript-an
 import { NativeScriptFormsModule } from "nativescript-angular/forms";
 import { routes, routableComponents } from "./app.routes";
 import {LoginComponent} from "./components/index";
+import { SIDEDRAWER_DIRECTIVES, TKMainContentDirective, TKDrawerContentDirective } from 'nativescript-telerik-ui/sidedrawer/angular';
 import { AppComponent } from "./app.component";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { NgModule } from "@angular/core";
@@ -20,6 +21,7 @@ _onsesignal.initalize();
     declarations: [
         AppComponent,      
         ...routableComponents,
+           SIDEDRAWER_DIRECTIVES,
     ],
     imports: 
     [

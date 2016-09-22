@@ -29,7 +29,7 @@ export class auth0Service {
                     headers: { "Content-Type": "application/json" },
                     content: JSON.stringify(_data)
                 }).then((response) => {                    
-                    let code = response.content.toJSON().statusCode;
+                    let code = response.statusCode;
                     if(code==200){
                         let result = response.content.toJSON();
                         res(result.access_token);
