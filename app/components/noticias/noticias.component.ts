@@ -8,6 +8,11 @@ import { RadSideDrawerComponent, SideDrawerType } from "nativescript-telerik-ui/
 import {TextField} from "ui/text-field";
 import {Router} from "@angular/router";
 import {WPService} from "../../services/index";
+var observable = require('data/observable');
+var ObservableArray = require('data/observable-array').ObservableArray;
+var fetchModule = require('fetch');
+var http = require("http");
+
 @Component({
   selector: "noticias",
     templateUrl: "components/noticias/noticias.html",
@@ -32,13 +37,21 @@ export class NoticiasComponent implements OnInit {
          this.pages = [
             {name:"Productos"},
             {name:"Noticias"},
-            {name:"Inicio"},
+            {name:"Salir"},
         ]; 
   }
 
       ngAfterViewInit() {
         this.drawer = this.drawerComponent.sideDrawer;
         this._changeDetectionRef.detectChanges();
+        this._wpService.getNews().then((profile)=>{
+            //Information of the user
+            //profile.query.results;
+            console.log(profile);
+            this.isLoading = false;
+            
+            
+        });
     }
 
     public openDrawer() {

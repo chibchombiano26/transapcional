@@ -1,5 +1,5 @@
 .add-bar {
-  background-color: #CB1D00;
+  background-color: orange;
   padding: 5 10;
 }
 .add-bar Image {
@@ -39,7 +39,7 @@ ListView1 {
 }
 
 .bgc-white {
-    background-color:red;
+    background-color: orangered;
 }
 .page-name {
     padding: 13px 8px;
@@ -47,11 +47,24 @@ ListView1 {
     color: #000;
 }
 ActionBar {  
-    background-color:  #3C5AFD;
+    background-color: orange;
     color: white;
 }
 
 RadSideDrawer {  
     padding: 0;
     margin: 0;
+}
+
+.itemStackLayout {
+    text-align: left;
+    vertical-align: center;
+    font-size: 16;
+    color:#404040;
+}
+
+.control-title{
+    background-color: #0081C5;
+    color: white;
+    
 }
