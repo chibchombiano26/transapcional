@@ -7,10 +7,7 @@ import { SIDEDRAWER_DIRECTIVES, TKMainContentDirective, TKDrawerContentDirective
 import { AppComponent } from "./app.component";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { NgModule } from "@angular/core";
-
 import {onsesignal} from './vendors/onesignal';
-
-
 
 let _onsesignal = new onsesignal();
 _onsesignal.initalize();

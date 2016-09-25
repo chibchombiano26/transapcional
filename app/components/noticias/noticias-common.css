@@ -1,70 +1,32 @@
-.add-bar {
-  background-color: orange;
-  padding: 5 10;
-}
-.add-bar Image {
-  height: 15;
-  vertical-align: center;
-  margin-left: 10;
-  margin-right: 5;
-}
-TextField {
-  color: white;
+
+.drawerContentText {
+    font-size: 13;
+    padding: 10;
 }
 
-ListView1 {
-  opacity: 0;
-}
-.visible {
-  animation-name: show;
-  animation-duration: 1s;
-}
-@keyframes show {
-  from { opacity: 0; }
-  to { opacity: 1; }
+.sideStackLayout {
+    background-color: white;
 }
 
-.delete-container {
-  background-color: #CB1D00;
-  padding: 5;
-  height: 20;
-  margin-right: 8;
+.sideTitleStackLayout {
+    padding: 10;
+    text-align: center;
 }
 
-.p {
-    padding: 10px;
-}
-.m {
-    padding: 10px;
+.sideLabel {
+    padding: 10;
 }
 
-.bgc-white {
-    background-color: orangered;
-}
-.page-name {
-    padding: 13px 8px;
-    font-size: 16px;
-    color: #000;
-}
-ActionBar {  
-    background-color: orange;
-    color: white;
+.sideLightGrayLabel {
+    background-color: lightgray;
 }
 
-RadSideDrawer {  
-    padding: 0;
-    margin: 0;
+
+
+/*.odd {
+    background-color: red;
 }
 
-.itemStackLayout {
-    text-align: left;
-    vertical-align: center;
-    font-size: 16;
-    color:#404040;
-}
-
-.control-title{
-    background-color: #0081C5;
-    color: white;
-    
-}
+.even {
+    background-color: blue;
+}*/
