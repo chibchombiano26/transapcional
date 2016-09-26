@@ -39,6 +39,7 @@ export class NoticiasComponent extends Observable implements OnInit {
         }        
         this.loadNews();
     }    
+    
 
     loadNews(){
         this._firebaseService.getData("portafolio").then((result)=>{            
