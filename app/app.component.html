@@ -1,0 +1,19 @@
+<RadSideDrawer exampleTitle toggleNavButton>
+    <StackLayout tkDrawerContent class="sideStackLayout">
+        <StackLayout class="sideTitleStackLayout">
+            <Label text="Menu"></Label>
+        </StackLayout>
+        <StackLayout class="sideStackLayout">
+            <ListView [items]="myItems" (itemTap)="onItemTap($event)">
+                <template let-item="item" let-i="index" let-odd="odd" let-even="even">
+                  <StackLayout orientation="horizontal" [class.odd]="odd" [class.even]="even">                      
+                      <Label [text]='"[" + item.id +"] " + item.name'></Label>
+                  </StackLayout>
+              </template>
+            </ListView>
+        </StackLayout>
+    </StackLayout>
+    <StackLayout tkMainContent>
+        <router-outlet></router-outlet>
+    </StackLayout>
+</RadSideDrawer>

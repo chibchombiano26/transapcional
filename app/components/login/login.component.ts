@@ -6,6 +6,7 @@ import { NativeScriptModule } from "nativescript-angular/platform";
 import {auth0Service, WPService} from "../../services/index";
 import {Router} from "@angular/router";
 import {firebaseService} from "../../services/index";
+import {customEvents} from "../../events/customEvent";
 
 @Component({
     selector: "login",
@@ -17,11 +18,16 @@ import {firebaseService} from "../../services/index";
 export class LoginComponent implements OnInit 
 {
     user: User;
-     isLoading = false;
-    constructor(private _firebaseService: firebaseService, private auth0 : auth0Service, private wp:WPService, private page: Page,private _router: Router) {
+    isLoading = false;
+    
+    constructor(private _firebaseService: firebaseService, private _customEvents : customEvents, private auth0 : auth0Service, private wp:WPService, private page: Page,private _router: Router) {
         this.user = new User();
         this.user.email = "futbolito152@gmail.com";
         this.user.password = "iguazo262";
+
+        _customEvents.subject.subscribe({
+            next: (v) => console.log('observerA: ' + v)
+        });
     }
     ngOnInit() {
         this.page.actionBarHidden = true;
@@ -33,6 +39,8 @@ export class LoginComponent implements OnInit
             //Information of the user
             console.log(profile);
             
+            this._customEvents.subject.next("Test");
+
             this.isLoading = false;
             this._router.navigate(["/noticias"])
             
