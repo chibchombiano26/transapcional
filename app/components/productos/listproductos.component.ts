@@ -1,28 +1,26 @@
 import { Component} from "@angular/core";
 import {WPService,firebaseService} from "../../services/index";
 import {util} from "../../util/util";
-import {customEvents} from "../../events/customEvent";
 
 var firebase = require("nativescript-plugin-firebase");
 
 
 @Component({
-  selector: "noticias",
-  templateUrl: "components/noticias/noticias.html",
-  styleUrls: ["components/noticias/noticias-common.css"],
+  selector: "list-productos",
+  templateUrl: "components/productos/listproductos.html",
   providers: [WPService, firebaseService]
 })
-export class NoticiasComponent {
+export class ListProductosComponent {
     private counter: number;
     public news : Array<any> = [];
     public _util = new util();
 
-    constructor(private _firebaseService: firebaseService, private _customEvents : customEvents) {
-        this.loadNews();
+    constructor(private _firebaseService: firebaseService) {
+        //this.loadNews();
 
-        _customEvents.subject.subscribe({
-            next: (v) => console.log('observerB: ' + v)
-        });
+        // _customEvents.subject.subscribe({
+        //     next: (v) => console.log('observerB: ' + v)
+        // });
 
         // setInterval(()=>{
         //     this._customEvents.subject.next("Test");
@@ -34,11 +32,6 @@ export class NoticiasComponent {
         this._firebaseService.getData("portafolio").then((result)=>{
             this.news = this._util.objectToArray(result);
         })
-
-
-        /*firebase.addChildEventListener((newElement)=>{
-            this.news.push(newElement.value);
-        }, "/portafolio");*/
     }
 
     public onItemTap(args) {

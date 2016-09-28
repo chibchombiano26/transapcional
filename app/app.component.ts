@@ -7,6 +7,7 @@ import sideDrawerModule = require('nativescript-telerik-ui/sidedrawer');
 import { Observable } from "data/observable";
 import { RadSideDrawerComponent, SideDrawerType } from "nativescript-telerik-ui/sidedrawer/angular";
 import {customEvents} from "./events/customEvent";
+import {Router} from "@angular/router";
 
 class DataItem {
     constructor(public id: number, public name: string) { }
@@ -14,7 +15,8 @@ class DataItem {
 
 @Component({
     selector: "my-app",
-    templateUrl: "./app.component.html"
+    templateUrl: "./app.component.html",
+    styleUrls : ["./main.css"]
 })
 @Injectable()
 export class AppComponent extends Observable implements OnInit{
@@ -22,15 +24,16 @@ export class AppComponent extends Observable implements OnInit{
     public myItems: Array<DataItem>;
     private counter: number;
     
-    constructor(private _customEvents: customEvents, private page: Page, private _changeDetectionRef: ChangeDetectorRef) {       
+    constructor(private _customEvents: customEvents, private page: Page, private _changeDetectionRef: ChangeDetectorRef,private _router: Router) {       
         super();
 
         this.myItems = [];
         this.counter = 0;
-        for (var i = 0; i < 50; i++) {
-            this.myItems.push(new DataItem(i, "data item " + i));
-            this.counter = i;
-        }
+        this.myItems.push(new DataItem(1, "Noticias"));
+        this.myItems.push(new DataItem(2, "Productos"));
+        this.myItems.push(new DataItem(2, "Salir"));
+
+        
 
         this.event();
     }
@@ -54,6 +57,14 @@ export class AppComponent extends Observable implements OnInit{
     }
 
     public onItemTap(args) {
+        if (args.index = "1")
+        {
+            this._router.navigate(["/productos"])
+        }
+        else
+        {
+            this._router.navigate(["/noticias"])
+        }
         console.log("------------------------ ItemTapped: " + args.index);
     }
 
