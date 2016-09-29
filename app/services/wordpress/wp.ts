@@ -8,6 +8,7 @@ var http = require("http");
 export class WPService {
     feedItems = new ObservableArray();
     postUrl:string = "http://web-1.wordress.d7817b8c.cont.dockerapp.io/wp-json/wp/v2/posts?fields[name]=";
+    posts:string = "http://web.wordress.aa29d523.svc.dockerapp.io/category/productos/feed/";
 
 
     constructor() {
@@ -16,10 +17,12 @@ export class WPService {
     getPost(name){
         let promise = new Promise((res,rej)=>{
             http.request({
-                url: this.postUrl + name,
+                url: this.posts,
                 method: "GET",                                
             }).then((response) => {                
-               res(response.content.toJSON());
+               res(
+                   response.content.toJSON()
+                   );
             }, (e) => {
                  rej(e);
             });

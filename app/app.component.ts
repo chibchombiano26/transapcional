@@ -57,7 +57,7 @@ export class AppComponent extends Observable implements OnInit{
     }
 
     public onItemTap(args) {
-        if (args.index = "1")
+        if (args.index == 1)
         {
             this._router.navigate(["/productos"])
         }

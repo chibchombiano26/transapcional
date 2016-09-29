@@ -1,7 +1,6 @@
 import { Component} from "@angular/core";
 import {WPService,firebaseService} from "../../services/index";
 import {util} from "../../util/util";
-
 var firebase = require("nativescript-plugin-firebase");
 
 
@@ -15,7 +14,10 @@ export class ListProductosComponent {
     public news : Array<any> = [];
     public _util = new util();
 
-    constructor(private _firebaseService: firebaseService) {
+    constructor(private _firebaseService: firebaseService,private wpService: WPService) {
+        
+        this.loadNews();
+
         //this.loadNews();
 
         // _customEvents.subject.subscribe({
@@ -29,8 +31,9 @@ export class ListProductosComponent {
 
 
     loadNews(){
-        this._firebaseService.getData("portafolio").then((result)=>{
+        this._firebaseService.getData("Productos").then((result)=>{
             this.news = this._util.objectToArray(result);
+            console.log(this.news);
         })
     }
 
