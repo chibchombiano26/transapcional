@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild, Injectable, OnInit, ChangeDetectorRef } from "@angular/core";
 import { View } from "ui/core/view";
+
 import { RadSideDrawer } from "nativescript-telerik-ui/sidedrawer";
 import { Page } from "ui/page";
 import { ActionItem } from "ui/action-bar";
