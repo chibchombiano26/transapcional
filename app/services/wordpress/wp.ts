@@ -2,10 +2,12 @@ import { Injectable } from "@angular/core";
 var observable = require('data/observable');
 var ObservableArray = require('data/observable-array').ObservableArray;
 var fetchModule = require('fetch');
+import {Producto} from "../../components/productos/producto";
 var http = require("http");
 
 @Injectable()
 export class WPService {
+    public productoSeleccionado: Producto;
     feedItems = new ObservableArray();
     postUrl:string = "http://web-1.wordress.d7817b8c.cont.dockerapp.io/wp-json/wp/v2/posts?fields[name]=";
     posts:string = "http://web.wordress.aa29d523.svc.dockerapp.io/category/productos/feed/";

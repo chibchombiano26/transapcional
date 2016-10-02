@@ -2,7 +2,9 @@ import { Component} from "@angular/core";
 import {WPService,firebaseService} from "../../services/index";
 import {util} from "../../util/util";
 import {ObservableArray} from "data/observable-array";
+import {Producto} from "./producto";
 import { LISTVIEW_DIRECTIVES } from 'nativescript-telerik-ui/listview/angular';
+import {Router} from "@angular/router";
 
 var firebase = require("nativescript-plugin-firebase");
 
@@ -17,10 +19,10 @@ export class ListProductosComponent {
     private page;
     private listView    
     private counter: number;
-    public news : Array<any> = [];
+    public lstproductos : Array<Producto> = [];
     public _util = new util();
 
-    constructor(private _firebaseService: firebaseService,private wpService: WPService) {
+    constructor(private _firebaseService: firebaseService,private wpService: WPService,private _router: Router) {
         
         this.loadNews();
 
@@ -40,28 +42,22 @@ export class ListProductosComponent {
     
 // }
 
-onItemSelected(args) {
 
-    // var selectedItems = this.listView.getSelectedItems();
-    // var selectedTitles = "Selected items: ";
-    // for (var i = 0; i < selectedItems.length; i++) {
-    //     console.log(selectedItems[i].Name);
-    // }
-    console.log("hola 1") 
-    
-
-    
-}
 
 
     loadNews(){
         this._firebaseService.getData("Productos").then((result)=>{
-            this.news = this._util.objectToArray(result);
-            console.log(this.news);
+            this.lstproductos = this._util.objectToArray(result);
+            console.log(this.lstproductos);
+            
         })
     }
 
     public onItemTap(args) {
         console.log("------------------------ ItemTapped: " + args.index);
+        this._firebaseService.productoSeleccionado =this.lstproductos[args.index]; 
+        this.wpService.productoSeleccionado =this.lstproductos[args.index]; 
+        alert(this.lstproductos[args.index].Name);
+        this._router.navigate(["/detalle"])
     }
 }

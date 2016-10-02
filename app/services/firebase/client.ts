@@ -1,10 +1,12 @@
 import {Injectable,OnInit} from "@angular/core";
 var firebase = require("nativescript-plugin-firebase");
+import {Producto} from "../../components/productos/producto";
 
 @Injectable()
 export class firebaseService implements OnInit {
-
+    public productoSeleccionado: Producto;
     constructor() {        
+         
         this.initFirebase();
     }
 

@@ -9,7 +9,7 @@ import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { NgModule } from "@angular/core";
 import {onsesignal} from './vendors/onesignal';
 import {customEvents} from "./events/customEvent";
-import { LISTVIEW_DIRECTIVES } from 'nativescript-telerik-ui/listview/angular';
+
 
 let _onsesignal = new onsesignal();
 _onsesignal.initalize();
@@ -20,8 +20,7 @@ _onsesignal.initalize();
     declarations: [
         AppComponent,      
         ...routableComponents,
-           SIDEDRAWER_DIRECTIVES,
-           LISTVIEW_DIRECTIVES
+           SIDEDRAWER_DIRECTIVES
     ],
     imports: 
     [
