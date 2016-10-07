@@ -25,9 +25,9 @@ export class LoginComponent implements OnInit
         this.user.email = "futbolito152@gmail.com";
         this.user.password = "iguazo262";
 
-        _customEvents.subject.subscribe({
-            next: (v) => console.log('observerA: ' + v)
-        });
+        // _customEvents.subject.subscribe({
+        //     next: (v) => console.log('observerA: ' + v)
+        // });
     }
     ngOnInit() {
         this.page.actionBarHidden = true;
@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit
             //Information of the user
             console.log(profile);
             
-            this._customEvents.subject.next("Test");
+            //this._customEvents.subject.next("Test");
 
             this.isLoading = false;
             this._router.navigate(["/noticias"])

@@ -1,17 +1,19 @@
 import { Component, ElementRef, ViewChild, Injectable, OnInit, ChangeDetectorRef } from "@angular/core";
 import { View } from "ui/core/view";
-
 import { RadSideDrawer } from "nativescript-telerik-ui/sidedrawer";
 import { Page } from "ui/page";
 import { ActionItem } from "ui/action-bar";
 import sideDrawerModule = require('nativescript-telerik-ui/sidedrawer');
 import { Observable } from "data/observable";
+import {DetalleProducto} from "./components/detalleProducto/detalleproducto";
 import { RadSideDrawerComponent, SideDrawerType } from "nativescript-telerik-ui/sidedrawer/angular";
 import {customEvents} from "./events/customEvent";
 import {Router} from "@angular/router";
+import {firebaseService} from "./services/index";
+import {util} from "./util/util";
 
 class DataItem {
-    constructor(public id: number, public name: string) { }
+    constructor(public id: number, public name: string, public Template: string) { }
 }
 
 @Component({
@@ -20,22 +22,19 @@ class DataItem {
     styleUrls : ["./main.css"]
 })
 @Injectable()
-export class AppComponent extends Observable implements OnInit{
-
+export class AppComponent extends Observable {
+     _util = new util();
     public myItems: Array<DataItem>;
     private counter: number;
     
-    constructor(private _customEvents: customEvents, private page: Page, private _changeDetectionRef: ChangeDetectorRef,private _router: Router) {       
+    constructor(private _customEvents: customEvents, private page: Page, private _changeDetectionRef: ChangeDetectorRef,private _router: Router, private _firebaseService: firebaseService) {       
         super();
 
         this.myItems = [];
         this.counter = 0;
-        this.myItems.push(new DataItem(1, "Noticias"));
-        this.myItems.push(new DataItem(2, "Productos"));
-        this.myItems.push(new DataItem(2, "Salir"));
-
-        
-
+        this.myItems.push(new DataItem(1, "Noticias",""));
+        this.myItems.push(new DataItem(2, "Productos",""));
+        this.myItems.push(new DataItem(2, "Salir",""));
         this.event();
     }
 
@@ -46,7 +45,22 @@ export class AppComponent extends Observable implements OnInit{
             if(thiz._customEvents.subject){
                 console.log("Main subscribed");
                 thiz._customEvents.subject.subscribe({
-                    next: (v) => console.log('Fired from main menu: ' + v)
+                    next: (v) => {
+                        console.log('Fired from main menu: ' + v)
+                         var _util = new util();
+                            //if (v == "Detalle" && this._firebaseService.detalleSeleccionado) {
+                                this.myItems = [];
+                                let z2 = _util.objectToArray(v);
+                                
+                                for(var n=0;n <= z2.length-1;n++){
+                                this.myItems.push(new DataItem(n, z2[n].Name,z2[n].Template));
+
+                            }
+                        //}
+                        
+
+
+                                }
                 });
             }
             else{
@@ -77,10 +91,10 @@ export class AppComponent extends Observable implements OnInit{
         this._changeDetectionRef.detectChanges();
     }
 
-    ngOnInit() {
-        this.set("mainContentText", "SideDrawer for NativeScript can be easily setup in the XML definition of your page by defining main- and drawer-content. The component"
-            + " has a default transition and position and also exposes notifications related to changes in its state. Swipe from left to open side drawer.");
-    }
+    // ngOnInit() {
+    //     this.set("mainContentText", "SideDrawer for NativeScript can be easily setup in the XML definition of your page by defining main- and drawer-content. The component"
+    //         + " has a default transition and position and also exposes notifications related to changes in its state. Swipe from left to open side drawer.");
+    // }
 
     public openDrawer() {
         this.drawer.showDrawer();

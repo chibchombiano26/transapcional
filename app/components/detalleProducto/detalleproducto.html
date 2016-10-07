@@ -1,12 +1,12 @@
-
-<StackLayout>    
-    <ListView [items]="lstproductos" (itemTap)="onItemTap($event)">
-        <template tkListItemTemplate let-item="item">
-            <GridLayout columns="40, *">
-                <Image  src="{{ item.Image }}"  height="40"></Image>
-                <Label vertical-align="center" horizontal-align="left" col="1" text="{{ item.Name }}"> </Label>
-             </GridLayout>
-        </template>
-   </ListView>
+<!--<ActionBar title="SideDrawer Button">
+  <android>
+    <NavigationButton icon="res://ic_menu" tap="showSlideout" />
+  </android>
+  <ios>
+    <ActionItem icon="res://ic_menu" ios.position="left" tap="showSideDrawer" />
+  </ios>
+</ActionBar>-->
+<StackLayout *ngIf="detalleProducto">    
+     <HtmlView html="{{ detalleProducto.Template }}"></HtmlView>
 </StackLayout>
 

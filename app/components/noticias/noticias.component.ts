@@ -10,7 +10,7 @@ var firebase = require("nativescript-plugin-firebase");
   selector: "noticias",
   templateUrl: "components/noticias/noticias.html",
   styleUrls: ["components/noticias/noticias-common.css"],
-  providers: [WPService, firebaseService]
+  providers: [WPService]
 })
 export class NoticiasComponent {
     private counter: number;
@@ -20,9 +20,10 @@ export class NoticiasComponent {
     constructor(private _firebaseService: firebaseService, private _customEvents : customEvents) {
         this.loadNews();
 
-        _customEvents.subject.subscribe({
-            next: (v) => console.log('observerB: ' + v)
-        });
+        // _customEvents.subject.subscribe({
+        //     next: (v) => 
+        //     console.log('observerB: ' + v)
+        // });
 
         // setInterval(()=>{
         //     this._customEvents.subject.next("Test");

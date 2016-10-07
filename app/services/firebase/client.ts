@@ -1,10 +1,12 @@
 import {Injectable,OnInit} from "@angular/core";
 var firebase = require("nativescript-plugin-firebase");
 import {Producto} from "../../components/productos/producto";
+import {DetalleProducto} from "../../components/detalleProducto/detalleproducto";
 
 @Injectable()
 export class firebaseService implements OnInit {
     public productoSeleccionado: Producto;
+    public detalleSeleccionado: DetalleProducto;
     constructor() {        
          
         this.initFirebase();
@@ -29,7 +31,6 @@ export class firebaseService implements OnInit {
     getData(table) : Promise<any> {
 
         let promise = new Promise((res, rej) => {
-
             firebase.query(
                 ((result) => {                                        
                     res(result.value);
@@ -50,6 +51,25 @@ export class firebaseService implements OnInit {
     }
 
     getQuery(table, limit){
+        return firebase.query(
+            ((result) => {                    
+                console.log(result);
+            }),
+            "/" + table, 
+            {
+                singleEvent: true,
+                orderBy: {
+                    type: firebase.QueryOrderByType.KEY
+                },
+                limit: {
+                    type: firebase.QueryLimitType.LAST,
+                    value: limit
+                }
+            }
+        );
+    }
+
+    getQuerybyid(table, limit){
         return firebase.query(
             ((result) => {                    
                 console.log(result);

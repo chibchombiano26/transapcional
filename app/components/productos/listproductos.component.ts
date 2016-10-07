@@ -12,7 +12,7 @@ var firebase = require("nativescript-plugin-firebase");
 @Component({
   selector: "list-productos",
   templateUrl: "components/productos/listproductos.html",
-  providers: [WPService, firebaseService]
+  providers: [WPService]
 })
 
 export class ListProductosComponent {
@@ -25,25 +25,7 @@ export class ListProductosComponent {
     constructor(private _firebaseService: firebaseService,private wpService: WPService,private _router: Router) {
         
         this.loadNews();
-
-        //this.loadNews();
-
-        // _customEvents.subject.subscribe({
-        //     next: (v) => console.log('observerB: ' + v)
-        // });
-
-        // setInterval(()=>{
-        //     this._customEvents.subject.next("Test");
-        // }, 3000);
     }
-
-//     onPageLoaded(args) {
-//    console.log("hola")
-    
-// }
-
-
-
 
     loadNews(){
         this._firebaseService.getData("Productos").then((result)=>{
@@ -57,7 +39,7 @@ export class ListProductosComponent {
         console.log("------------------------ ItemTapped: " + args.index);
         this._firebaseService.productoSeleccionado =this.lstproductos[args.index]; 
         this.wpService.productoSeleccionado =this.lstproductos[args.index]; 
-        alert(this.lstproductos[args.index].Name);
+        
         this._router.navigate(["/detalle"])
     }
 }
