@@ -2,6 +2,7 @@ import { Component} from "@angular/core";
 import {WPService,firebaseService} from "../../services/index";
 import {util} from "../../util/util";
 import {customEvents} from "../../events/customEvent";
+import {Page} from "ui/page";
 
 var firebase = require("nativescript-plugin-firebase");
 
@@ -17,8 +18,10 @@ export class NoticiasComponent {
     public news : Array<any> = [];
     public _util = new util();
 
-    constructor(private _firebaseService: firebaseService, private _customEvents : customEvents) {
+    constructor(private _firebaseService: firebaseService, private _customEvents : customEvents, private page: Page) {
         this.loadNews();
+        this.page.actionBarHidden = false;
+        this.page.actionBar.title = "Noticias";
 
         // _customEvents.subject.subscribe({
         //     next: (v) => 

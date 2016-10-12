@@ -7,6 +7,8 @@ import {DetalleProducto} from "../../components/detalleProducto/detalleproducto"
 export class firebaseService implements OnInit {
     public productoSeleccionado: Producto;
     public detalleSeleccionado: DetalleProducto;
+    public detalleSeleccionadoProducto: DetalleProducto;
+    
     constructor() {        
          
         this.initFirebase();

@@ -1,3 +1,16 @@
+
+<!--<ActionBar title="SideDrawer Button">
+  <android>
+    <NavigationButton icon="res://ic_menu" tap="showSlideout"></NavigationButton>
+  </android>
+  <ios>
+    <ActionItem icon="res://ic_menu" ios.position="left" tap="showSideDrawer"></ActionItem>
+  </ios>
+</ActionBar>-->
+<ActionBar title="ActionBar title">
+    <NavigationButton android.systemIcon="ic_menu_back" text="Back to ActionBar" (tap)="goBack()"></NavigationButton>
+    <!--<NavigationButton android.systemIcon="ic_menu_back" text="Back to ActionBar" (tap)="goBack()"></NavigationButton>-->
+</ActionBar>
 <RadSideDrawer exampleTitle toggleNavButton>
     <StackLayout tkDrawerContent class="sideStackLayout">
         <StackLayout class="sideTitleStackLayout">
@@ -7,7 +20,7 @@
             <ListView [items]="myItems" (itemTap)="onItemTap($event)">
                 <template let-item="item" let-i="index" let-odd="odd" let-even="even">
                   <GridLayout orientation="horizontal" [class.odd]="odd" [class.even]="even">                      
-                      <Label [text]='"[" + item.id +"] " + item.name'></Label>
+                      <Label [text]='item.Name'></Label>
                   </GridLayout>
               </template>
             </ListView>

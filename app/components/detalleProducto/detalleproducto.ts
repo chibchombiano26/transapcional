@@ -1,5 +1,4 @@
 export class DetalleProducto {
-    Name:string;
-    Template:string;
-    Lista: Array<DetalleProducto>;
+
+     constructor(public  Name:string, public Template: string, public Lista: Array<DetalleProducto>,public Navigate: string) { }
 }
