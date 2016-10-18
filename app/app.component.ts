@@ -1,9 +1,9 @@
+import { Profile } from './models';
 import { Component, ElementRef, ViewChild, Injectable, OnInit, ChangeDetectorRef } from "@angular/core";
 import { View } from "ui/core/view";
 import { RadSideDrawer } from "nativescript-telerik-ui/sidedrawer";
 import { Page } from "ui/page";
 import { ActionItem } from "ui/action-bar";
-
 import sideDrawerModule = require('nativescript-telerik-ui/sidedrawer');
 import { Observable } from "data/observable";
 import {DetalleProducto} from "./components/detalleProducto/detalleproducto";
@@ -11,7 +11,7 @@ import { RadSideDrawerComponent, SideDrawerType } from "nativescript-telerik-ui/
 import {customEvents} from "./events/customEvent";
 import {Router} from "@angular/router";
 import { RouterExtensions } from 'nativescript-angular/router';
-import {firebaseService} from "./services/index";
+import {firebaseService,auth0Service} from "./services/index";
 import {util} from "./util/util";
 
 // class DataItem {
@@ -21,16 +21,18 @@ import {util} from "./util/util";
 @Component({
     selector: "my-app",
     templateUrl: "./app.component.html",
-    styleUrls: ["./main.css"]
+    styleUrls: ["./app.css"]
 })
 @Injectable()
 export class AppComponent extends Observable {
     _util = new util();
+    public profile: Profile;
     public myItems: Array<DetalleProducto>;
     private counter: number;
 
     constructor(private _customEvents: customEvents, private page: Page, private _changeDetectionRef: ChangeDetectorRef,
-        private _router: Router, private _firebaseService: firebaseService, private routerExtensions: RouterExtensions) {
+        private _router: Router, private _firebaseService: firebaseService, private routerExtensions: RouterExtensions,
+        private auth0 : auth0Service) {
         super();
 
         this.cargaMenu();
@@ -40,9 +42,9 @@ export class AppComponent extends Observable {
     cargaMenu() {
         this.myItems = [];
         this.counter = 0;
-        this.myItems.push(new DetalleProducto("Noticias", "noticias", null, "noticias"));
-        this.myItems.push(new DetalleProducto("Productos", "productos", null, "productos"));
-        this.myItems.push(new DetalleProducto("Salir", "", null, ""));
+        this.myItems.push(new DetalleProducto("Noticias", "noticias", null, "noticias",String.fromCharCode('&#xf1ea;')));
+        this.myItems.push(new DetalleProducto("Productos", "productos", null, "productos",""));
+        this.myItems.push(new DetalleProducto("Salir", "", null, "",""));
     }
 
     event() {
@@ -56,15 +58,22 @@ export class AppComponent extends Observable {
                         thiz.myItems = [];
                         let z2 = thiz._util.objectToArray(v);
                         for (var n = 0; n <= z2.length - 1; n++) {
-                            thiz.myItems.push(new DetalleProducto(z2[n].Name, z2[n].Template, z2[n].Lista, "detalle"));
+                            thiz.myItems.push(new DetalleProducto(z2[n].Name, z2[n].Template, z2[n].Lista, "detalle",""));
                         }
                         
+                    }
+                });
+                thiz._customEvents.isLoggin.subscribe({
+                    next: (v) => {
+                        console.log('Hola loggin: ' + v)
+                        thiz.profile = thiz.auth0.profile;
                     }
                 });
             }
             else {
                 thiz.event();
             }
+            
 
         }, 3000);
 
@@ -120,7 +129,7 @@ export class AppComponent extends Observable {
     // }
 
     public openDrawer() {
-        this.drawer.showDrawer();
+        this.drawer.toggleDrawerState();
     }
 
 

@@ -7,6 +7,7 @@
   </ios>
 </ActionBar>-->
 <StackLayout *ngIf="detalleProducto">    
-     <HtmlView html="{{ detalleProducto.Template }}"></HtmlView>
+     <!--<HtmlView html="{{ detalleProducto.Template }}"></HtmlView>-->
+      <WebView url="{{ detalleProducto.Template }}"></WebView>
 </StackLayout>
 

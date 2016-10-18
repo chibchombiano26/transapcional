@@ -8,6 +8,7 @@ import {Page} from "ui/page";
 import {customEvents} from "../../events/customEvent";
 import {Router, Params} from "@angular/router";
 import { ActivatedRoute } from '@angular/router';
+import {WebView, LoadEventData} from "ui/web-view";
 
 
 

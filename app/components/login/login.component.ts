@@ -1,3 +1,4 @@
+import { Profile } from '../../models/profile';
 import {Component, OnInit} from '@angular/core';
 import {User} from '../../models/user';
 import {Page} from "ui/page";
@@ -11,7 +12,6 @@ import {customEvents} from "../../events/customEvent";
 @Component({
     selector: "login",
     templateUrl: "components/login/login.html",
-    providers: [auth0Service, WPService, firebaseService],
     styleUrls: ["components/login/login-common.css", "components/login/login.css"]    
 }) 
 
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit
     user: User;
     isLoading = false;
     
-    constructor(private _firebaseService: firebaseService, private _customEvents : customEvents, private auth0 : auth0Service, private wp:WPService, private page: Page,private _router: Router) {
+    constructor(private _firebaseService: firebaseService, private _customEvents : customEvents, private auth0 : auth0Service, private page: Page,private _router: Router) {
         this.user = new User();
         this.user.email = "futbolito152@gmail.com";
         this.user.password = "iguazo262";
@@ -38,8 +38,10 @@ export class LoginComponent implements OnInit
             this.auth0.getUser(this.user).then((profile)=>{
             //Information of the user
             console.log(profile);
+           this.auth0.profile = <Profile>profile;
+           console.log(this.auth0.profile.name);
             
-            //this._customEvents.subject.next("Test");
+            this._customEvents.isLoggin.next("Loggin");
 
             this.isLoading = false;
             this._router.navigate(["/noticias"])

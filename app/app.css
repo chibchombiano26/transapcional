@@ -1,6 +1,16 @@
-﻿button, label, stack-layout {
+﻿@import './css/core.light.css'; 
+
+button {
     horizontal-align: center;    
 }
+
+
+
+.font-awesome {
+    font-family: "FontAwesome";
+}
+
+
 
 button {
     font-size: 20;
@@ -19,6 +29,40 @@ button {
 } 
 
 ActionBar {
-    background-color:  #3C5AFD;
+    background-color:  #2E4E7A;
     color: white;
 }
+
+
+
+.drawerContentText {
+    font-size: 13;
+    padding: 10;
+}
+
+.sideStackLayout {
+    background-color: white;
+}
+
+.sideTitleStackLayout {
+    
+}
+
+.sideLabel {
+    margin-left:10;
+    color: white;
+     font-size: 12;
+}
+
+.sideLightGrayLabel {
+    background-color: lightgray;
+}
+
+.initial-logo {
+  horizontal-align: center;
+  margin-bottom: 10;
+   width: 100px;
+    height: 100px;
+}
+
+

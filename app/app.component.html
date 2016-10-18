@@ -1,4 +1,3 @@
-
 <!--<ActionBar title="SideDrawer Button">
   <android>
     <NavigationButton icon="res://ic_menu" tap="showSlideout"></NavigationButton>
@@ -8,25 +7,42 @@
   </ios>
 </ActionBar>-->
 <ActionBar title="ActionBar title">
-    <NavigationButton android.systemIcon="ic_menu_back" text="Back to ActionBar" (tap)="goBack()"></NavigationButton>
-    <!--<NavigationButton android.systemIcon="ic_menu_back" text="Back to ActionBar" (tap)="goBack()"></NavigationButton>-->
+
+	<!--<NavigationButton android.systemIcon="ic_menu_back" text="Atras" (tap)="goBack()"></NavigationButton>
+    
+    <NavigationButton android.systemIcon="ic_menu" text="Menu" (tap)="openDrawer()"></NavigationButton>
+    -->
+	<ActionItem (tap)="goBack()" ios.systemIcon="9" ios.position="left" android.systemIcon="ic_menu_back" android.position="actionBar"></ActionItem>
+	<ActionItem (tap)="openDrawer()" ios.systemIcon="9" ios.position="left" android.systemIcon="ic_menu_account_list" android.position="actionBar"></ActionItem>
 </ActionBar>
 <RadSideDrawer exampleTitle toggleNavButton>
-    <StackLayout tkDrawerContent class="sideStackLayout">
-        <StackLayout class="sideTitleStackLayout">
-            <Label text="Menu"></Label>
-        </StackLayout>
-        <StackLayout class="sideStackLayout">
-            <ListView [items]="myItems" (itemTap)="onItemTap($event)">
-                <template let-item="item" let-i="index" let-odd="odd" let-even="even">
-                  <GridLayout orientation="horizontal" [class.odd]="odd" [class.even]="even">                      
-                      <Label [text]='item.Name'></Label>
-                  </GridLayout>
-              </template>
-            </ListView>
-        </StackLayout>
-    </StackLayout>
-    <StackLayout tkMainContent>
-        <router-outlet></router-outlet>
-    </StackLayout>
+	<StackLayout tkDrawerContent class="sideStackLayout">
+		<GridLayout rows="auto,40"  class="sideTitleStackLayout">
+			<Image src="res://imagen_side" rowSpan="2" stretch="aspectFit"></Image>
+			<StackLayout row="1" vertical-align="bottom" *ngIf="profile">
+				<!--<Label  text="&#xf1ea;" class="font-awesome" horizontal-align="left"></Label>-->
+				<Label  class="sideLabel"  horizontal-align="left" [text]='profile.name'></Label>
+				<Label  class="sideLabel" horizontal-align="left" [text]='profile.email'></Label>
+				
+				 
+			</StackLayout>
+		</GridLayout>
+
+		<StackLayout class="sideStackLayout">
+			<ListView [items]="myItems" (itemTap)="onItemTap($event)">
+				<template let-item="item" let-i="index" let-odd="odd" let-even="even">
+					<GridLayout orientation="horizontal" [class.odd]="odd" [class.even]="even">
+						<StackLayout orientation="horizontal">
+							<Label  text="&#xf1ea;" class="font-awesome" horizontal-align="left"></Label>
+							<Label marginBottom="10" marginTop="10" class="font-awesome" marginLeft="10" horizontal-align="left" [text]='item.Icon'></Label>
+							<Label marginBottom="10" marginTop="10" marginLeft="10" horizontal-align="left" [text]='item.Name'></Label>
+						</StackLayout>
+					</GridLayout>
+				</template>
+			</ListView>
+		</StackLayout>
+	</StackLayout>
+	<StackLayout tkMainContent>
+		<router-outlet></router-outlet>
+	</StackLayout>
 </RadSideDrawer>

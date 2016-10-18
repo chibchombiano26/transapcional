@@ -1,11 +1,19 @@
-// Place your settings in this file to overwrite default and user settings.
+// Place your sw settings in this file to overwrite the default settings
 {
-  "files.exclude": {
-  "**/.git": true,
-  "**/.DS_Store": true,
-  "models/**/*.js": true,
-  "services/**/*.js": true,
-  "**/**/*.js.map": true,  
-  "rethinkdb_data/**" : true
-  }
+    "files.exclude":{
+        ".gitignore":true,
+        "hooks/":true,
+        "platforms":true,
+        "node_modules":true,
+        "**/LICENSE":true,
+        "README.md":true,
+        "tsconfig.json":true,
+        "**/*.js":false,
+        "**/*.js.map":true,
+        "lib":true,
+        ".vscode/":true,
+        "references.d.ts":true
+    }
+,
+"typescript.check.workspaceVersion": false
 }

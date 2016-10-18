@@ -1,11 +1,12 @@
 import { Injectable } from "@angular/core";
 import {User} from "../../models/index";
+import {Profile} from "../../models/index";
 var http = require("http");
 
 
 @Injectable()
 export class auth0Service {
-
+    public profile: Profile;
     clientId:string = "zO8W3NvBiUMrqTwEAo6w9tYefEPCWm9n";
 
 
@@ -66,6 +67,7 @@ export class auth0Service {
             this.login(user).then((token)=>{
                 this.getProfile(token).then((profile)=>{
                     res(profile);
+                    
                 })
             })
 

@@ -10,6 +10,7 @@ import { NgModule } from "@angular/core";
 import {onsesignal} from './vendors/onesignal';
 import {customEvents} from "./events/customEvent";
 import {firebaseService} from "./services/firebase/client";
+import {auth0Service} from "./services/index";
 
 
 let _onsesignal = new onsesignal();
@@ -30,7 +31,7 @@ _onsesignal.initalize();
         NativeScriptFormsModule,
         NativeScriptRouterModule.forRoot(routes)
     ],
-    providers:[customEvents,firebaseService]
+    providers:[customEvents,firebaseService,auth0Service]
 })
 class AppComponentModule {}
 

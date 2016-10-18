@@ -14,7 +14,8 @@ var firebase = require("nativescript-plugin-firebase");
 @Component({
   selector: "list-productos",
   templateUrl: "components/productos/listproductos.html",
-  providers: [WPService]
+  providers: [WPService],
+  styleUrls: ["./app.css"]
 })
 
 export class ListProductosComponent {
@@ -29,6 +30,7 @@ export class ListProductosComponent {
         
         this.loadNews();
         this.page.actionBar.title = "Productos";
+        this.page.actionBarHidden = false;
     }
 
     loadNews(){
