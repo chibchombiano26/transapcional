@@ -11,6 +11,10 @@ import {onsesignal} from './vendors/onesignal';
 import {customEvents} from "./events/customEvent";
 import {firebaseService} from "./services/firebase/client";
 import {auth0Service} from "./services/index";
+import {
+  TNSFontIconPipe, TNSFontIconPurePipe, TNSFontIconService
+} from 'nativescript-ng2-fonticon/nativescript-ng2-fonticon';
+
 
 
 let _onsesignal = new onsesignal();
@@ -22,7 +26,8 @@ _onsesignal.initalize();
     declarations: [
         AppComponent,      
         ...routableComponents,
-           SIDEDRAWER_DIRECTIVES
+           SIDEDRAWER_DIRECTIVES,
+           TNSFontIconPipe, TNSFontIconPurePipe
     ],
     imports: 
     [
@@ -31,7 +36,17 @@ _onsesignal.initalize();
         NativeScriptFormsModule,
         NativeScriptRouterModule.forRoot(routes)
     ],
-    providers:[customEvents,firebaseService,auth0Service]
+    providers:[customEvents,firebaseService,auth0Service,
+    {
+      provide: TNSFontIconService,
+      useFactory: () => {
+        return new TNSFontIconService({
+          'fa': 'font-awesome.css',
+          'ion': 'ionicons.css'
+        });
+      }
+    }]
+    
 })
 class AppComponentModule {}
 

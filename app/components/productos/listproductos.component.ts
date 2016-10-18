@@ -7,7 +7,6 @@ import { LISTVIEW_DIRECTIVES } from 'nativescript-telerik-ui/listview/angular';
 import {Router} from "@angular/router";
 import {customEvents} from "../../events/customEvent";
 import {Page} from "ui/page";
-
 var firebase = require("nativescript-plugin-firebase");
 
 
@@ -15,7 +14,8 @@ var firebase = require("nativescript-plugin-firebase");
   selector: "list-productos",
   templateUrl: "components/productos/listproductos.html",
   providers: [WPService],
-  styleUrls: ["./app.css"]
+  styleUrls: ["./app.css"],
+  
 })
 
 export class ListProductosComponent {

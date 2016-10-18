@@ -13,6 +13,10 @@ import {Router} from "@angular/router";
 import { RouterExtensions } from 'nativescript-angular/router';
 import {firebaseService,auth0Service} from "./services/index";
 import {util} from "./util/util";
+import {
+  TNSFontIconPipe, TNSFontIconPurePipe, TNSFontIconService
+} from 'nativescript-ng2-fonticon/nativescript-ng2-fonticon';
+
 
 // class DataItem {
 //     constructor(public id: number, public name: string, public Navigate: string) { }
@@ -22,6 +26,7 @@ import {util} from "./util/util";
     selector: "my-app",
     templateUrl: "./app.component.html",
     styleUrls: ["./app.css"]
+    
 })
 @Injectable()
 export class AppComponent extends Observable {
@@ -42,9 +47,9 @@ export class AppComponent extends Observable {
     cargaMenu() {
         this.myItems = [];
         this.counter = 0;
-        this.myItems.push(new DetalleProducto("Noticias", "noticias", null, "noticias",String.fromCharCode('&#xf1ea;')));
-        this.myItems.push(new DetalleProducto("Productos", "productos", null, "productos",""));
-        this.myItems.push(new DetalleProducto("Salir", "", null, "",""));
+        this.myItems.push(new DetalleProducto("Noticias", "noticias", null, "noticias","fa-newspaper-o"));
+        this.myItems.push(new DetalleProducto("Productos", "productos", null, "productos","fa-product-hunt"));
+        this.myItems.push(new DetalleProducto("Salir", "", null, "","fa-sign-out"));
     }
 
     event() {
@@ -55,10 +60,10 @@ export class AppComponent extends Observable {
                 thiz._customEvents.subject.subscribe({
                     next: (v) => {
                         console.log('Fired from main menu: ' + v)
-                        thiz.myItems = [];
+                        thiz.myItems = new Array<DetalleProducto>();
                         let z2 = thiz._util.objectToArray(v);
                         for (var n = 0; n <= z2.length - 1; n++) {
-                            thiz.myItems.push(new DetalleProducto(z2[n].Name, z2[n].Template, z2[n].Lista, "detalle",""));
+                            thiz.myItems.push(new DetalleProducto(z2[n].Name, z2[n].Template, z2[n].Lista, "detalle",z2[n].Icon));
                         }
                         
                     }

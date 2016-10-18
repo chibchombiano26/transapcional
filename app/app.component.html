@@ -20,23 +20,17 @@
 		<GridLayout rows="auto,40"  class="sideTitleStackLayout">
 			<Image src="res://imagen_side" rowSpan="2" stretch="aspectFit"></Image>
 			<StackLayout row="1" vertical-align="bottom" *ngIf="profile">
-				<!--<Label  text="&#xf1ea;" class="font-awesome" horizontal-align="left"></Label>-->
-				<Label  class="sideLabel"  horizontal-align="left" [text]='profile.name'></Label>
 				<Label  class="sideLabel" horizontal-align="left" [text]='profile.email'></Label>
-				
-				 
+				<Label  class="sideLabel" horizontal-align="left" [text]='profile.name'></Label>
 			</StackLayout>
 		</GridLayout>
 
-		<StackLayout class="sideStackLayout">
+		<StackLayout  class="sideStackLayout">
 			<ListView [items]="myItems" (itemTap)="onItemTap($event)">
 				<template let-item="item" let-i="index" let-odd="odd" let-even="even">
-					<GridLayout orientation="horizontal" [class.odd]="odd" [class.even]="even">
-						<StackLayout orientation="horizontal">
-							<Label  text="&#xf1ea;" class="font-awesome" horizontal-align="left"></Label>
-							<Label marginBottom="10" marginTop="10" class="font-awesome" marginLeft="10" horizontal-align="left" [text]='item.Icon'></Label>
-							<Label marginBottom="10" marginTop="10" marginLeft="10" horizontal-align="left" [text]='item.Name'></Label>
-						</StackLayout>
+					<GridLayout columns="50,auto" horizontal-aling="stretch" [class.odd]="odd" [class.even]="even">
+							<Label  marginLeft="10" marginBottom="10" marginTop="10" class="fa" [text]='item.Icon | fonticon'></Label>
+							<Label col="1" textWrap="true" horizontal-aling="stretch" [text]='item.Name'></Label>
 					</GridLayout>
 				</template>
 			</ListView>
