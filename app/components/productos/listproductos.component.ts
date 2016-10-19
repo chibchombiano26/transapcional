@@ -1,4 +1,4 @@
-import { Component} from "@angular/core";
+import { Component, ViewContainerRef,TemplateRef} from "@angular/core";
 import {WPService,firebaseService} from "../../services/index";
 import {util} from "../../util/util";
 import {ObservableArray} from "data/observable-array";
@@ -13,7 +13,7 @@ var firebase = require("nativescript-plugin-firebase");
 @Component({
   selector: "list-productos",
   templateUrl: "components/productos/listproductos.html",
-  providers: [WPService],
+  providers: [WPService,LISTVIEW_DIRECTIVES,ViewContainerRef,TemplateRef],
   styleUrls: ["./app.css"],
   
 })
@@ -42,9 +42,9 @@ export class ListProductosComponent {
     }
 
     public onItemTap(args) {
-        console.log("------------------------ ItemTapped: " + args.index);
-        this._firebaseService.productoSeleccionado =this.lstproductos[args.index]; 
-        this.wpService.productoSeleccionado =this.lstproductos[args.index]; 
+        console.log("------------------------ ItemTapped: " + args.itemIndex);
+        this._firebaseService.productoSeleccionado =this.lstproductos[args.itemIndex]; 
+        this.wpService.productoSeleccionado =this.lstproductos[args.itemIndex]; 
            this._firebaseService.getQuery("DetalleProducto/" + this._firebaseService.productoSeleccionado.DetalleProducto,10).then((result)=>{
             //var q = this._util.objectToArray(result);
             this._firebaseService.detalleSeleccionadoProducto = result.value;

@@ -1,11 +1,20 @@
-<StackLayout>    
-    <ListView [items]="lstproductos" (itemTap)="onItemTap($event)">
+<StackLayout> 
+<RadListView selectionBehavior="Press" multipleSelection="false"  (itemSelected)="onItemTap($event)" pullToRefresh="false" [items]="lstproductos">
+        <template tkListItemTemplate let-item="item">
+            <StackLayout orientation="vertical" >
+                <Label  class="nameLabel" [text]="item.Name"></Label>
+                
+            </StackLayout>
+        </template>
+    </RadListView>
+
+    <!--<ListView [items]="lstproductos" (itemTap)="onItemTap($event)">
         <template tkListItemTemplate let-item="item">
             <GridLayout columns="40, *">
                 <Image  src="{{ item.Image }}"  height="40"></Image>
                 <Label class="h2" col="1" text="{{ item.Name }}"> </Label>
              </GridLayout>
         </template>
-   </ListView>
+   </ListView>-->
 </StackLayout>
 

@@ -7,6 +7,7 @@ import { SIDEDRAWER_DIRECTIVES, TKMainContentDirective, TKDrawerContentDirective
 import { AppComponent } from "./app.component";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { NgModule } from "@angular/core";
+import { LISTVIEW_DIRECTIVES } from 'nativescript-telerik-ui/listview/angular';
 import {onsesignal} from './vendors/onesignal';
 import {customEvents} from "./events/customEvent";
 import {firebaseService} from "./services/firebase/client";
@@ -26,6 +27,7 @@ _onsesignal.initalize();
     declarations: [
         AppComponent,      
         ...routableComponents,
+        LISTVIEW_DIRECTIVES,
            SIDEDRAWER_DIRECTIVES,
            TNSFontIconPipe, TNSFontIconPurePipe
     ],

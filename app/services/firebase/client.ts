@@ -2,6 +2,7 @@ import {Injectable,OnInit} from "@angular/core";
 var firebase = require("nativescript-plugin-firebase");
 import {Producto} from "../../components/productos/producto";
 import {DetalleProducto} from "../../components/detalleProducto/detalleproducto";
+var vibrator = require("nativescript-vibrate");
 
 @Injectable()
 export class firebaseService implements OnInit {
@@ -28,7 +29,12 @@ export class firebaseService implements OnInit {
                 console.log("firebase.init error: " + error);
             }
         );
+        firebase.addOnMessageReceivedCallback((message:any)=>{
+         vibrator.vibration(500);
+});
     }
+
+    
 
     getData(table) : Promise<any> {
 
