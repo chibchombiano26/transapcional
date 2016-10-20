@@ -1,5 +1,5 @@
 import { Component, OnInit, } from "@angular/core";
-import {WPService, firebaseService} from "../../services/index";
+import {firebaseService} from "../../services/index";
 import {ObservableArray} from "data/observable-array";
 import {Producto} from "../productos/producto";
 import {DetalleProducto} from "./detalleproducto";
@@ -14,15 +14,14 @@ import {WebView, LoadEventData} from "ui/web-view";
 
 @Component({
   selector: "detalle-producto",
-  templateUrl: "components/detalleProducto/detalleproducto.html",
-  providers: [WPService]
+  templateUrl: "components/detalleProducto/detalleproducto.html"
 })
 
 export class DetalleProductoComponent implements OnInit {
   private _paramSubcription: any;
   public _util = new util();
   public detalleProducto: DetalleProducto;
-  constructor(private _firebaseService: firebaseService, private wpService: WPService, private page: Page, private _customEvents: customEvents, private _router: Router, private _activatedRoute: ActivatedRoute) {
+  constructor(private _firebaseService: firebaseService, private page: Page, private _customEvents: customEvents, private _router: Router, private _activatedRoute: ActivatedRoute) {
 
 
   }

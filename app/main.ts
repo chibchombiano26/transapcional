@@ -8,18 +8,12 @@ import { AppComponent } from "./app.component";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { NgModule } from "@angular/core";
 import { LISTVIEW_DIRECTIVES } from 'nativescript-telerik-ui/listview/angular';
-import {onsesignal} from './vendors/onesignal';
 import {customEvents} from "./events/customEvent";
 import {firebaseService} from "./services/firebase/client";
-import {auth0Service} from "./services/index";
 import {
   TNSFontIconPipe, TNSFontIconPurePipe, TNSFontIconService
 } from 'nativescript-ng2-fonticon/nativescript-ng2-fonticon';
 
-
-
-let _onsesignal = new onsesignal();
-_onsesignal.initalize();
 
 
 @NgModule({    
@@ -38,7 +32,7 @@ _onsesignal.initalize();
         NativeScriptFormsModule,
         NativeScriptRouterModule.forRoot(routes)
     ],
-    providers:[customEvents,firebaseService,auth0Service,
+    providers:[customEvents,firebaseService,
     {
       provide: TNSFontIconService,
       useFactory: () => {

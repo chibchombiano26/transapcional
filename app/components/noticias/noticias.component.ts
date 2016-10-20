@@ -1,5 +1,5 @@
 import { Component} from "@angular/core";
-import {WPService,firebaseService} from "../../services/index";
+import {firebaseService} from "../../services/index";
 import {util} from "../../util/util";
 import {customEvents} from "../../events/customEvent";
 import {Page} from "ui/page";
@@ -10,8 +10,7 @@ var firebase = require("nativescript-plugin-firebase");
 @Component({
   selector: "noticias",
   templateUrl: "components/noticias/noticias.html",
-  styleUrls: ["components/noticias/noticias-common.css"],
-  providers: [WPService]
+  styleUrls: ["components/noticias/noticias-common.css"]
 })
 export class NoticiasComponent {
     private counter: number;

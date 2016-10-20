@@ -1,21 +1,37 @@
-import {Injectable,OnInit} from "@angular/core";
+import { Injectable, OnInit } from "@angular/core";
 var firebase = require("nativescript-plugin-firebase");
-import {Producto} from "../../components/productos/producto";
-import {DetalleProducto} from "../../components/detalleProducto/detalleproducto";
+import { Producto } from "../../components/productos/producto";
+import { DetalleProducto } from "../../components/detalleProducto/detalleproducto";
 var vibrator = require("nativescript-vibrate");
+import {User} from "../../models/index";
 
 @Injectable()
 export class firebaseService implements OnInit {
     public productoSeleccionado: Producto;
     public detalleSeleccionado: DetalleProducto;
     public detalleSeleccionadoProducto: DetalleProducto;
-    
-    constructor() {        
-         
+
+    constructor() {
+
         this.initFirebase();
     }
 
-    ngOnInit() {}
+    login(user:User): Promise<any> {
+        let promise = new Promise((res, rej) => {
+            firebase.login({
+                type: firebase.LoginType.PASSWORD,
+                email: user.email,
+                password: user.password
+            }).then((response) => {
+                res(response);
+            }, (e) => {
+                rej(e);
+            });
+        })
+        return promise;
+    }
+
+    ngOnInit() { }
 
 
     initFirebase() {
@@ -23,27 +39,27 @@ export class firebaseService implements OnInit {
             url: 'https://transapcional-6a346.firebaseio.com'
         }).then(
             (instance) => {
-                console.log("firebase.init done");                
+                console.log("firebase.init done");
             },
             (error) => {
                 console.log("firebase.init error: " + error);
             }
-        );
-        firebase.addOnMessageReceivedCallback((message:any)=>{
-         vibrator.vibration(500);
-});
+            );
+        firebase.addOnMessageReceivedCallback((message: any) => {
+            vibrator.vibration(500);
+        });
     }
 
-    
 
-    getData(table) : Promise<any> {
+
+    getData(table): Promise<any> {
 
         let promise = new Promise((res, rej) => {
             firebase.query(
-                ((result) => {                                        
+                ((result) => {
                     res(result.value);
                 }),
-                "/" + table, 
+                "/" + table,
                 {
                     singleEvent: true,
                     orderBy: {
@@ -58,12 +74,12 @@ export class firebaseService implements OnInit {
 
     }
 
-    getQuery(table, limit){
+    getQuery(table, limit) {
         return firebase.query(
-            ((result) => {                    
+            ((result) => {
                 console.log(result);
             }),
-            "/" + table, 
+            "/" + table,
             {
                 singleEvent: true,
                 orderBy: {
@@ -77,12 +93,12 @@ export class firebaseService implements OnInit {
         );
     }
 
-    getQuerybyid(table, limit){
+    getQuerybyid(table, limit) {
         return firebase.query(
-            ((result) => {                    
+            ((result) => {
                 console.log(result);
             }),
-            "/" + table, 
+            "/" + table,
             {
                 singleEvent: true,
                 orderBy: {

@@ -11,7 +11,7 @@ import { RadSideDrawerComponent, SideDrawerType } from "nativescript-telerik-ui/
 import {customEvents} from "./events/customEvent";
 import {Router} from "@angular/router";
 import { RouterExtensions } from 'nativescript-angular/router';
-import {firebaseService,auth0Service} from "./services/index";
+import {firebaseService} from "./services/index";
 import {util} from "./util/util";
 import {
   TNSFontIconPipe, TNSFontIconPurePipe, TNSFontIconService
@@ -36,8 +36,7 @@ export class AppComponent extends Observable {
     private counter: number;
 
     constructor(private _customEvents: customEvents, private page: Page, private _changeDetectionRef: ChangeDetectorRef,
-        private _router: Router, private _firebaseService: firebaseService, private routerExtensions: RouterExtensions,
-        private auth0 : auth0Service) {
+        private _router: Router, private _firebaseService: firebaseService, private routerExtensions: RouterExtensions) {
         super();
 
         this.cargaMenu();
@@ -71,7 +70,6 @@ export class AppComponent extends Observable {
                 thiz._customEvents.isLoggin.subscribe({
                     next: (v) => {
                         console.log('Hola loggin: ' + v)
-                        thiz.profile = thiz.auth0.profile;
                     }
                 });
             }
