@@ -9,6 +9,7 @@ import { firebaseService } from "../../services/index";
 import { customEvents } from "../../events/customEvent";
 
 @Component({
+    
     selector: "login",
     templateUrl: "components/login/login.html",
     styleUrls: ["components/login/login-common.css", "components/login/login.css"]
@@ -22,13 +23,16 @@ export class LoginComponent implements OnInit {
         this.user = new User();
         this.user.email = "avilap@gmail.com";
         this.user.password = "123456";
-
-        // _customEvents.subject.subscribe({
-        //     next: (v) => console.log('observerA: ' + v)
-        // });
     }
     ngOnInit() {
+
         this.page.actionBarHidden = true;
+          if (this._firebaseService.isLoggin && this._firebaseService.isLoggin == true)
+        {
+            this._customEvents.isLoggin.next("Loggin");
+            this.isLoading = false;
+            this._router.navigate(["/noticias"])
+        }        
     }
 
     submit() {

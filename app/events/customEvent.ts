@@ -4,7 +4,7 @@ import * as Rx from 'rxjs';
 
 @Injectable()
 export class customEvents{
-
+    
     subject : Rx.Subject<any>;
     isLoggin : Rx.Subject<any>;
 

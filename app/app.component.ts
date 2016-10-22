@@ -48,7 +48,7 @@ export class AppComponent extends Observable {
         this.counter = 0;
         this.myItems.push(new DetalleProducto("Noticias", "noticias", null, "noticias","fa-newspaper-o"));
         this.myItems.push(new DetalleProducto("Productos", "productos", null, "productos","fa-product-hunt"));
-        this.myItems.push(new DetalleProducto("Salir", "", null, "","fa-sign-out"));
+        this.myItems.push(new DetalleProducto("Salir", "", null, "salir","fa-sign-out"));
     }
 
     event() {
@@ -64,7 +64,6 @@ export class AppComponent extends Observable {
                         for (var n = 0; n <= z2.length - 1; n++) {
                             thiz.myItems.push(new DetalleProducto(z2[n].Name, z2[n].Template, z2[n].Lista, "detalle",z2[n].Icon));
                         }
-                        
                     }
                 });
                 thiz._customEvents.isLoggin.subscribe({
@@ -72,6 +71,11 @@ export class AppComponent extends Observable {
                         console.log('Hola loggin: ' + v)
                     }
                 });
+                if (thiz._firebaseService.isLoggin == true)
+                {
+                    thiz._router.navigate(["/noticias"]);
+                }
+
             }
             else {
                 thiz.event();
@@ -112,6 +116,12 @@ export class AppComponent extends Observable {
             }
             this._router.navigate(["/detalle/" + this._firebaseService.detalleSeleccionado.Name]);
             
+        }
+        else if(navigate == "salir"){
+            this._router.navigate(["/"]);
+            this._firebaseService.isLoggin = false;
+            this._firebaseService.logout();
+
         }
         else {
             this._router.navigate(["/" + navigate]);

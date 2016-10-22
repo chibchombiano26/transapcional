@@ -1,12 +1,12 @@
 <StackLayout> 
-<RadListView selectionBehavior="Press" multipleSelection="false"  (itemSelected)="onItemTap($event)" pullToRefresh="false" [items]="lstproductos">
+<!--<RadListView selectionBehavior="Press" multipleSelection="false"  (itemSelected)="onItemTap($event)" pullToRefresh="false" [items]="lstproductos">
         <template tkListItemTemplate let-item="item">
             <StackLayout orientation="vertical" >
                 <Label  class="nameLabel" [text]="item.Name"></Label>
                 
             </StackLayout>
         </template>
-    </RadListView>
+    </RadListView>-->
 
     <!--<ListView [items]="lstproductos" (itemTap)="onItemTap($event)">
         <template tkListItemTemplate let-item="item">
@@ -16,5 +16,20 @@
              </GridLayout>
         </template>
    </ListView>-->
+    <RadListView selectionBehavior="Press" multipleSelection="false"  (itemSelected)="onItemTap($event)" pullToRefresh="false" [items]="lstproductos">
+        <template tkListItemTemplate let-item="item">
+            <GridLayout class="listItemTemplateGrid">
+                <Image horizontalAlignment="stretch" height="150" [src]="item.Image" verticalAlignment="top"></Image>
+                <GridLayout verticalAlignment="bottom">
+                    <StackLayout class="labelsStackLayout">
+                        <Label  [text]="item.Name"></Label>
+                        <!--<Label [text]="item.Name"></Label>-->
+                    </StackLayout>
+                </GridLayout>
+            </GridLayout>
+        </template>
+        <ListViewGridLayout tkListViewLayout scrollDirection="Vertical" itemHeight="150" spanCount="2"></ListViewGridLayout>
+    </RadListView>
+
 </StackLayout>
 

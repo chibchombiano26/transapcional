@@ -3,20 +3,22 @@ var firebase = require("nativescript-plugin-firebase");
 import { Producto } from "../../components/productos/producto";
 import { DetalleProducto } from "../../components/detalleProducto/detalleproducto";
 var vibrator = require("nativescript-vibrate");
-import {User} from "../../models/index";
+import { User } from "../../models/index";
+import { Router } from "@angular/router";
+import { customEvents } from "../../events/customEvent";
 
 @Injectable()
 export class firebaseService implements OnInit {
     public productoSeleccionado: Producto;
     public detalleSeleccionado: DetalleProducto;
     public detalleSeleccionadoProducto: DetalleProducto;
-
-    constructor() {
+    public isLoggin: boolean;
+    constructor(private _customEvents: customEvents) {
 
         this.initFirebase();
     }
 
-    login(user:User): Promise<any> {
+    login(user: User): Promise<any> {
         let promise = new Promise((res, rej) => {
             firebase.login({
                 type: firebase.LoginType.PASSWORD,
@@ -31,12 +33,34 @@ export class firebaseService implements OnInit {
         return promise;
     }
 
-    ngOnInit() { }
+    ngOnInit() 
+    { 
+
+    }
+
+    logout(){
+          firebase.logout();
+    }
 
 
     initFirebase() {
+        let thiz = this; 
         firebase.init({
-            url: 'https://transapcional-6a346.firebaseio.com'
+            url: 'https://transapcional-6a346.firebaseio.com',
+            onAuthStateChanged: function (data) { // optional but useful to immediately re-logon the user when he re-visits your app
+                console.log(data.loggedIn ? "Logged in to firebase" : "Logged out from firebase");
+                if (data.loggedIn) {
+                    console.log("user's email address: " + (data.user.email ? data.user.email : "N/A"));
+                    thiz.isLoggin = true;
+                    
+ 
+                }
+                else {
+                    this.isLoggin = false;
+                }
+
+            }
+
         }).then(
             (instance) => {
                 console.log("firebase.init done");
