@@ -95,6 +95,31 @@ export class firebaseService implements OnInit {
         })
 
         return promise;
+    }
+
+        GetDataLimit(table,limit): Promise<any> {
+
+        let promise = new Promise((res, rej) => {
+            firebase.query(
+                ((result) => {
+                    res(result.value);
+                }),
+                "/" + table,
+                {
+                    singleEvent: true,
+                    orderBy: {
+                        type: firebase.QueryOrderByType.KEY
+                    },
+                     limit: {
+                    type: firebase.QueryLimitType.LAST,
+                    value: limit
+                }
+                }
+            );
+
+        })
+
+        return promise;
 
     }
 

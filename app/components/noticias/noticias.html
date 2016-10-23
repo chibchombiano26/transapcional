@@ -1,7 +1,28 @@
-<StackLayout>    
-    <ListView [items]="news" (itemTap)="onItemTap($event)">
+<StackLayout>
+
+	<!--<ListView [items]="news" (itemTap)="onItemTap($event)">
         <template let-item="item" let-odd="odd" let-even="even">
             <Label [text]="item.Message" textWrap="true"></Label>                
         </template>
-    </ListView>
+    </ListView>-->
+	<RadListView selectionBehavior="Press" multipleSelection="false" (pullToRefreshInitiated)="onPullToRefreshInitiated($event)" (itemSelected)="onItemTap($event)" pullToRefresh="true"
+		[items]="news">
+		<template tkListItemTemplate let-item="item">
+			<GridLayout class="listItemTemplateGrid">
+				<GridLayout verticalAlignment="bottom">
+					<Border borderRadius="10" borderWidth="0.5" borderColor="#BDBDBD">
+						<StackLayout height="50" class="labelsStackLayoutNews" orientation="horizontal">
+							<Image height="30" [src]="item.Image"></Image>
+							<Label textWrap="true" verticalAlignment="center" marginLeft="20" marginRight="10" [text]="item.Title"></Label>
+						</StackLayout>
+					</Border>
+				</GridLayout>
+			</GridLayout>
+		</template>
+
+		<!-- >> angular-listview-item-animations-html -->
+		<ListViewLinearLayout tkListViewLayout scrollDirection="Vertical" itemInsertAnimation="Default" itemDeleteAnimation="Default"></ListViewLinearLayout>
+		<!-- << angular-listview-item-animations-html -->
+	</RadListView>
+
 </StackLayout>
