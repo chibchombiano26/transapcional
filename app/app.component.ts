@@ -31,16 +31,19 @@ import {
 @Injectable()
 export class AppComponent extends Observable {
     _util = new util();
+    public count : number;
     public profile: Profile;
     public myItems: Array<DetalleProducto>;
     private counter: number;
+    public isInNews:boolean;
 
     constructor(private _customEvents: customEvents, private page: Page, private _changeDetectionRef: ChangeDetectorRef,
         private _router: Router, private _firebaseService: firebaseService, private routerExtensions: RouterExtensions) {
         super();
-
+        this.count +=1; 
         this.cargaMenu();
         this.event();
+        this.isInNews = true; 
     }
 
     cargaMenu() {
@@ -86,6 +89,7 @@ export class AppComponent extends Observable {
 
     }
     public goBack() {
+        this.isInNews = false;
         if (this._router.routerState.snapshot.url.indexOf('detalle') >= 0  && this._firebaseService.detalleSeleccionado != this._firebaseService.detalleSeleccionadoProducto ) {
             this._firebaseService.detalleSeleccionado = this._firebaseService.detalleSeleccionadoProducto;
             this._customEvents.subject.next(this._firebaseService.detalleSeleccionadoProducto.Lista);
@@ -96,6 +100,7 @@ export class AppComponent extends Observable {
             this._router.navigate(["/productos"]);
         }
         else if (this._router.routerState.snapshot.url.indexOf('producto')) {
+            this.isInNews = true;
             this._router.navigate(["/noticias"]);
 
         }
@@ -104,7 +109,13 @@ export class AppComponent extends Observable {
         }
     }
 
+    public refreshNews(){
+        this._firebaseService.count++;
+        this._router.navigate(["/noticias/" + this._firebaseService.count.toString()]);
+    }
+
     public onItemTap(args) {
+        this.isInNews = false;
         var navigate: string;
         this.drawer.toggleDrawerState();
         navigate = this.myItems[args.index].Navigate;
@@ -115,7 +126,6 @@ export class AppComponent extends Observable {
                 this._customEvents.subject.next(this._firebaseService.detalleSeleccionado.Lista);
             }
             this._router.navigate(["/detalle/" + this._firebaseService.detalleSeleccionado.Name]);
-            
         }
         else if(navigate == "salir"){
             this._router.navigate(["/"]);
@@ -126,6 +136,9 @@ export class AppComponent extends Observable {
         else {
             this._router.navigate(["/" + navigate]);
         }
+
+        if (navigate == "noticias")
+            this.isInNews = true;
     }
 
     @ViewChild(RadSideDrawerComponent) public drawerComponent: RadSideDrawerComponent;

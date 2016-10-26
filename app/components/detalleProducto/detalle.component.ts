@@ -21,7 +21,8 @@ export class DetalleProductoComponent implements OnInit {
   private _paramSubcription: any;
   public _util = new util();
   public detalleProducto: DetalleProducto;
-  constructor(private _firebaseService: firebaseService, private page: Page, private _customEvents: customEvents, private _router: Router, private _activatedRoute: ActivatedRoute) {
+  constructor(private _firebaseService: firebaseService, private page: Page, private _customEvents: customEvents, 
+  private _router: Router, private _activatedRoute: ActivatedRoute) {
 
 
   }
@@ -32,7 +33,8 @@ export class DetalleProductoComponent implements OnInit {
 
   }
   ngOnInit() {
-    console.log("detail ngOnInit was called.");
+    this.page.backgroundImage = "";
+    
     let entityName: string;
     this._paramSubcription = this._activatedRoute.params.subscribe(params => {
       entityName = params['id']

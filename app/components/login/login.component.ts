@@ -9,7 +9,7 @@ import { firebaseService } from "../../services/index";
 import { customEvents } from "../../events/customEvent";
 
 @Component({
-    
+
     selector: "login",
     templateUrl: "components/login/login.html",
     styleUrls: ["components/login/login-common.css", "components/login/login.css"]
@@ -27,16 +27,16 @@ export class LoginComponent implements OnInit {
     ngOnInit() {
 
         this.page.actionBarHidden = true;
-          if (this._firebaseService.isLoggin && this._firebaseService.isLoggin == true)
-        {
+        this.page.backgroundImage = "res://fondo";
+        if (this._firebaseService.isLoggin && this._firebaseService.isLoggin == true) {
             this._customEvents.isLoggin.next("Loggin");
             this.isLoading = false;
             this._router.navigate(["/noticias"])
-        }        
+        }
     }
 
     submit() {
-
+        this.isLoading = true;
         this._firebaseService.login(this.user).then((result) => {
             console.log(result);
             this._customEvents.isLoggin.next("Loggin");

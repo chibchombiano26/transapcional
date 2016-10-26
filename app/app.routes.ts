@@ -9,7 +9,8 @@ export const routes = [
     routeEntry({ path: "", component: LoginComponent }),
     routeEntry({ path: "noticias", component: NoticiasComponent }),
     routeEntry({ path: "productos", component: ListProductosComponent }),
-    routeEntry({ path: "detalle/:id", component: DetalleProductoComponent })
+    routeEntry({ path: "detalle/:id", component: DetalleProductoComponent }),
+    routeEntry({ path: "noticias/:id", component: NoticiasComponent })
 ];
 
 function routeEntry(data) {

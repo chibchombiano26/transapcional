@@ -1,10 +1,11 @@
-import { Component, ViewContainerRef, TemplateRef } from "@angular/core";
+import { Component, ViewContainerRef, TemplateRef,OnInit } from "@angular/core";
 import { firebaseService } from "../../services/index";
 import { util } from "../../util/util";
 import { customEvents } from "../../events/customEvent";
 import { ListViewEventData } from "nativescript-telerik-ui/listview";
 import { Page } from "ui/page";
 import { LISTVIEW_DIRECTIVES } from 'nativescript-telerik-ui/listview/angular';
+import { ActivatedRoute, Router } from '@angular/router';
 var utilityModule = require("utils/utils");
 
 
@@ -17,36 +18,36 @@ var firebase = require("nativescript-plugin-firebase");
     styleUrls: ["./app.css"],
     providers: [LISTVIEW_DIRECTIVES, ViewContainerRef, TemplateRef]
 })
-export class NoticiasComponent {
+export class NoticiasComponent implements OnInit {
+    private _paramSubcription1: any;
     private counter: number;
     public news: Array<any> = [];
     public _util = new util();
 
-    constructor(private _firebaseService: firebaseService, private _customEvents: customEvents, private page: Page) {
+    constructor(private _firebaseService: firebaseService, private _customEvents: customEvents, private page: Page,private _activatedRoute: ActivatedRoute) {
         this.loadNews();
         this.page.actionBarHidden = false;
         this.page.actionBar.title = "Noticias";
-
-        // _customEvents.subject.subscribe({
-        //     next: (v) => 
-        //     console.log('observerB: ' + v)
-        // });
-
-        // setInterval(()=>{
-        //     this._customEvents.subject.next("Test");
-        // }, 3000);
     }
 
 
     loadNews() {
+        if (this._firebaseService.lstNews && this._firebaseService.lstNews.length > 0)
+        {
+            this.news = this._firebaseService.lstNews;
+        }
+        else
+        {
+            this.loadNewsRefresh();
+        }
+    }
+
+    loadNewsRefresh() {
+
         this._firebaseService.GetDataLimit("portafolioRss", 20).then((result) => {
             this.news = this._util.objectToArray(result);
+            this._firebaseService.lstNews =this._util.objectToArray(result); 
         })
-
-
-        /*firebase.addChildEventListener((newElement)=>{
-            this.news.push(newElement.value);
-        }, "/portafolio");*/
     }
 
     public onItemTap(args) {
@@ -54,9 +55,28 @@ export class NoticiasComponent {
         utilityModule.openUrl(this.news[args.itemIndex].Link);
     }
 
+   ngOnInit() {
+       this.page.backgroundImage = "";
+
+    let entityName: string;
+    this._paramSubcription1 = this._activatedRoute.params.subscribe(params => {
+      entityName = params['id'];
+      if (entityName)
+      {
+          this.loadNewsRefresh();
+      }
+      else
+      {
+        this.loadNews();
+      }
+      
+    }
+    );
+  }
+
 
     public onPullToRefreshInitiated(args: ListViewEventData) {
-        this.loadNews();
+        this.loadNewsRefresh();
         var listView = args.object;
         listView.notifyPullToRefreshFinished();
     }

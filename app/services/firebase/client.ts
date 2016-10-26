@@ -13,6 +13,9 @@ export class firebaseService implements OnInit {
     public detalleSeleccionado: DetalleProducto;
     public detalleSeleccionadoProducto: DetalleProducto;
     public isLoggin: boolean;
+    public count: number = 0;
+    public lstproductos : Array<Producto> = [];
+    public lstNews : Array<any> = [];
     constructor(private _customEvents: customEvents) {
 
         this.initFirebase();
@@ -64,6 +67,8 @@ export class firebaseService implements OnInit {
         }).then(
             (instance) => {
                 console.log("firebase.init done");
+                
+
             },
             (error) => {
                 console.log("firebase.init error: " + error);

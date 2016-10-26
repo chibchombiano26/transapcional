@@ -12,8 +12,11 @@
     
     <NavigationButton android.systemIcon="ic_menu" text="Menu" (tap)="openDrawer()"></NavigationButton>
     -->
-	<ActionItem (tap)="goBack()" ios.systemIcon="9" ios.position="left" android.systemIcon="ic_menu_back" android.position="actionBar"></ActionItem>
-	<ActionItem (tap)="openDrawer()" ios.systemIcon="9" ios.position="left" android.systemIcon="ic_menu_account_list" android.position="actionBar"></ActionItem>
+	<ActionItem (tap)="goBack()" ios.systemIcon="9" ios.position="left"  android.systemIcon="ic_menu_back" android.position="actionBar"></ActionItem>
+	<ActionItem (tap)="openDrawer()" ios.systemIcon="10" ios.position="left" android.systemIcon="ic_menu_sort_by_size" android.position="actionBar"></ActionItem>
+	<ActionItem (tap)="refreshNews()" visibility="{{ isInNews ? 'visible' : 'collapse' }}" ios.systemIcon="13" ios.position="left" android.systemIcon="ic_menu_refresh" android.position="actionBar"></ActionItem>
+	<!--<Label  marginLeft="10" marginBottom="10" marginTop="10" class="fa" text="{{'fa-bluetooth' | fonticon }}"></Label>-->
+	
 </ActionBar>
 <RadSideDrawer exampleTitle toggleNavButton>
 	<StackLayout tkDrawerContent class="sideStackLayout">

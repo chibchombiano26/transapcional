@@ -1,4 +1,4 @@
-<StackLayout> 
+<StackLayout *ngIf="lstproductos"> 
     <RadListView selectionBehavior="Press" multipleSelection="false"  (itemSelected)="onItemTap($event)" pullToRefresh="false" [items]="lstproductos">
         <template tkListItemTemplate let-item="item">
             <GridLayout class="listItemTemplateGrid">
