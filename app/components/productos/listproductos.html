@@ -1,7 +1,8 @@
-<StackLayout *ngIf="lstproductos"> 
-    <RadListView selectionBehavior="Press" multipleSelection="false"  (itemSelected)="onItemTap($event)" pullToRefresh="false" [items]="lstproductos">
+<StackLayout *ngIf="lstproductos">
+	<!--<RadListView selectionBehavior="Press" multipleSelection="false"  (itemSelected)="onItemTap($event)" pullToRefresh="false" [items]="lstproductos">
         <template tkListItemTemplate let-item="item">
             <GridLayout class="listItemTemplateGrid">
+                <FrescoDrawee horizontalAlignment="stretch"  height="100" verticalAlignment="top" [placeholderImageUri]="item.Image"></FrescoDrawee>
                 <Image horizontalAlignment="stretch" height="100" [src]="item.Image" verticalAlignment="top"></Image>
                 <GridLayout verticalAlignment="bottom">
                     <StackLayout class="labelsStackLayout">
@@ -11,7 +12,15 @@
             </GridLayout>
         </template>
         <ListViewGridLayout tkListViewLayout scrollDirection="Vertical" itemHeight="100" spanCount="2"></ListViewGridLayout>
-    </RadListView>
+    </RadListView>-->
+
+	<ListView [items]="lstproductos" (itemTap)="onItemTap($event)">
+		<template let-odd="odd" let-even="even" let-item="item">
+			<StackLayout class="labelsStackLayout" orientation="horizontal">
+				<Image horizontalAlignment="stretch" height="80" width="100" [src]="item.Image" verticalAlignment="top"></Image>
+					<Label verticalAlignment="center" [text]="item.Name"></Label>
+			</StackLayout>
+		</template>
+	</ListView>
 
 </StackLayout>
-

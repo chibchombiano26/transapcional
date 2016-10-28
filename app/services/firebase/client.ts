@@ -6,6 +6,8 @@ var vibrator = require("nativescript-vibrate");
 import { User } from "../../models/index";
 import { Router } from "@angular/router";
 import { customEvents } from "../../events/customEvent";
+import dialogs = require("ui/dialogs");
+
 
 @Injectable()
 export class firebaseService implements OnInit {
@@ -14,8 +16,8 @@ export class firebaseService implements OnInit {
     public detalleSeleccionadoProducto: DetalleProducto;
     public isLoggin: boolean;
     public count: number = 0;
-    public lstproductos : Array<Producto> = [];
-    public lstNews : Array<any> = [];
+    public lstproductos: Array<Producto> = [];
+    public lstNews: Array<any> = [];
     constructor(private _customEvents: customEvents) {
 
         this.initFirebase();
@@ -36,18 +38,17 @@ export class firebaseService implements OnInit {
         return promise;
     }
 
-    ngOnInit() 
-    { 
+    ngOnInit() {
 
     }
 
-    logout(){
-          firebase.logout();
+    logout() {
+        firebase.logout();
     }
 
 
     initFirebase() {
-        let thiz = this; 
+        let thiz = this;
         firebase.init({
             url: 'https://transapcional-6a346.firebaseio.com',
             onAuthStateChanged: function (data) { // optional but useful to immediately re-logon the user when he re-visits your app
@@ -55,8 +56,8 @@ export class firebaseService implements OnInit {
                 if (data.loggedIn) {
                     console.log("user's email address: " + (data.user.email ? data.user.email : "N/A"));
                     thiz.isLoggin = true;
-                    
- 
+
+
                 }
                 else {
                     this.isLoggin = false;
@@ -67,7 +68,7 @@ export class firebaseService implements OnInit {
         }).then(
             (instance) => {
                 console.log("firebase.init done");
-                
+
 
             },
             (error) => {
@@ -76,6 +77,9 @@ export class firebaseService implements OnInit {
             );
         firebase.addOnMessageReceivedCallback((message: any) => {
             vibrator.vibration(500);
+            dialogs.alert(message).then(() => {
+                console.log("Dialog closed!");
+            });
         });
     }
 
@@ -102,7 +106,7 @@ export class firebaseService implements OnInit {
         return promise;
     }
 
-        GetDataLimit(table,limit): Promise<any> {
+    GetDataLimit(table, limit): Promise<any> {
 
         let promise = new Promise((res, rej) => {
             firebase.query(
@@ -115,10 +119,10 @@ export class firebaseService implements OnInit {
                     orderBy: {
                         type: firebase.QueryOrderByType.KEY
                     },
-                     limit: {
-                    type: firebase.QueryLimitType.LAST,
-                    value: limit
-                }
+                    limit: {
+                        type: firebase.QueryLimitType.LAST,
+                        value: limit
+                    }
                 }
             );
 

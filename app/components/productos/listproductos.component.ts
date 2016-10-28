@@ -1,25 +1,20 @@
-import { Component, ViewContainerRef, TemplateRef, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { firebaseService } from "../../services/index";
 import { util } from "../../util/util";
 import { ObservableArray } from "data/observable-array";
 import { Producto } from "./producto";
-import { LISTVIEW_DIRECTIVES } from 'nativescript-telerik-ui/listview/angular';
 import { Router } from "@angular/router";
 import { customEvents } from "../../events/customEvent";
 import { Page } from "ui/page";
-var firebase = require("nativescript-plugin-firebase");
-
 
 @Component({
     selector: "list-productos",
     templateUrl: "components/productos/listproductos.html",
-    providers: [LISTVIEW_DIRECTIVES, ViewContainerRef, TemplateRef],
     styleUrls: ["./app.css"],
 
 })
 
 export class ListProductosComponent implements OnInit {
-    private listView
     private counter: number;
     public lstproductos: Array<Producto> = [];
     public _util = new util();
@@ -30,7 +25,7 @@ export class ListProductosComponent implements OnInit {
         this.loadProducts();
         this.page.actionBar.title = "Productos";
         this.page.actionBarHidden = false;
-        this.page.backgroundImage = "res://imagen_side";
+        
     }
 
     ngOnInit() {
@@ -52,8 +47,9 @@ export class ListProductosComponent implements OnInit {
     }
 
     public onItemTap(args) {
-        console.log("------------------------ ItemTapped: " + args.itemIndex);
-        this._firebaseService.productoSeleccionado = this.lstproductos[args.itemIndex];
+        
+        console.log("------------------------ ItemTapped: " + args.index);
+        this._firebaseService.productoSeleccionado = this.lstproductos[args.index];
         this._firebaseService.getQuery("DetalleProducto/" + this._firebaseService.productoSeleccionado.DetalleProducto, 10).then((result) => {
             //var q = this._util.objectToArray(result);
             this._firebaseService.detalleSeleccionadoProducto = result.value;

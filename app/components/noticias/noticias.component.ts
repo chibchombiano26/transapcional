@@ -1,4 +1,4 @@
-import { Component, ViewContainerRef, TemplateRef,OnInit } from "@angular/core";
+import { Component,OnInit } from "@angular/core";
 import { firebaseService } from "../../services/index";
 import { util } from "../../util/util";
 import { customEvents } from "../../events/customEvent";
@@ -9,14 +9,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 var utilityModule = require("utils/utils");
 
 
-var firebase = require("nativescript-plugin-firebase");
-
 
 @Component({
     selector: "noticias",
     templateUrl: "components/noticias/noticias.html",
-    styleUrls: ["./app.css"],
-    providers: [LISTVIEW_DIRECTIVES, ViewContainerRef, TemplateRef]
+    styleUrls: ["./app.css"]
 })
 export class NoticiasComponent implements OnInit {
     private _paramSubcription1: any;
@@ -52,7 +49,7 @@ export class NoticiasComponent implements OnInit {
 
     public onItemTap(args) {
         console.log("------------------------ ItemTapped: " + args.index);
-        utilityModule.openUrl(this.news[args.itemIndex].Link);
+        utilityModule.openUrl(this.news[args.index].Link);
     }
 
    ngOnInit() {

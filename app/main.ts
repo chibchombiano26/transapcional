@@ -10,6 +10,20 @@ import { NgModule } from "@angular/core";
 import { LISTVIEW_DIRECTIVES } from 'nativescript-telerik-ui/listview/angular';
 import {customEvents} from "./events/customEvent";
 import {firebaseService} from "./services/firebase/client";
+
+
+
+
+
+// import * as applicationModule from "application";
+// import * as frescoModule from "nativescript-fresco";
+// import * as elementRegistryModule from 'nativescript-angular/element-registry';
+// if (applicationModule.android) {
+//     applicationModule.on("launch", () => {
+//         frescoModule.initialize();
+//     });
+// elementRegistryModule.registerElement("FrescoDrawee", () => frescoModule.FrescoDrawee);
+// }
 import {
   TNSFontIconPipe, TNSFontIconPurePipe, TNSFontIconService
 } from 'nativescript-ng2-fonticon/nativescript-ng2-fonticon';
