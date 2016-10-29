@@ -6,7 +6,7 @@
     <ActionItem icon="res://ic_menu" ios.position="left" tap="showSideDrawer"></ActionItem>
   </ios>
 </ActionBar>-->
-<ActionBar title="ActionBar title">
+<ActionBar title="Transappcional">
 
 	<!--<NavigationButton android.systemIcon="ic_menu_back" text="Atras" (tap)="goBack()"></NavigationButton>
     
@@ -14,7 +14,7 @@
     -->
 	<ActionItem (tap)="goBack()" ios.systemIcon="9" ios.position="left"  android.systemIcon="ic_menu_back" android.position="actionBar"></ActionItem>
 	<ActionItem (tap)="openDrawer()" ios.systemIcon="10" ios.position="left" android.systemIcon="ic_menu_sort_by_size" android.position="actionBar"></ActionItem>
-	<ActionItem (tap)="refreshNews()" visibility="{{ isInNews ? 'visible' : 'collapse' }}" ios.systemIcon="13" ios.position="left" android.systemIcon="ic_menu_refresh" android.position="actionBar"></ActionItem>
+	<ActionItem (tap)="refreshNews()" [visibility]=" isInNews ? 'visible' : 'collapse'" ios.systemIcon="13" ios.position="left" android.systemIcon="ic_menu_search" android.position="actionBar"></ActionItem>
 	<!--<Label  marginLeft="10" marginBottom="10" marginTop="10" class="fa" text="{{'fa-bluetooth' | fonticon }}"></Label>-->
 	
 </ActionBar>

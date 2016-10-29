@@ -7,6 +7,7 @@ import { NativeScriptModule } from "nativescript-angular/platform";
 import { Router } from "@angular/router";
 import { firebaseService } from "../../services/index";
 import { customEvents } from "../../events/customEvent";
+import dialogs = require("ui/dialogs");
 
 @Component({
 
@@ -27,7 +28,7 @@ export class LoginComponent implements OnInit {
     ngOnInit() {
 
         this.page.actionBarHidden = true;
-        this.page.backgroundImage = "res://fondo";
+
         if (this._firebaseService.isLoggin && this._firebaseService.isLoggin == true) {
             this._customEvents.isLoggin.next("Loggin");
             this.isLoading = false;
@@ -42,6 +43,13 @@ export class LoginComponent implements OnInit {
             this._customEvents.isLoggin.next("Loggin");
             this.isLoading = false;
             this._router.navigate(["/noticias"])
-        });
+        }, (e) => {
+                dialogs.alert("Verifique Usuario y/o contraseña");
+                this.isLoading = false;
+            });
+    }
+    remindPassword() {
+        this._router.navigate(["/reset"])
+
     }
 }

@@ -5,10 +5,7 @@
       stretch="aspectFit"
       class="initial-logo"></Image>
 		<TextField #email hint="Email Address" keyboardType="email" [(ngModel)]="user.email" autocorrect="false" autocapitalizationType="none"></TextField>
-		<TextField #password hint="Password" secure="true" [(ngModel)]="user.password"></TextField>
-		<Button text="Ingresar" class="submit-button" (tap)="submit()"></Button>
-		<Label text="Olvido su contraseña" class="labelRemind"  (tap)="remindPassword()"></Label>
-		
+		<Button text="Recordar" class="submit-button" (tap)="submit()"></Button>
 	</StackLayout>
 	<ActivityIndicator [busy]="isLoading" visibility='visible' horizontalAlignment="center" verticalAlignment="center"></ActivityIndicator>
 	<GridLayout>

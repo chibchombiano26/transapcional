@@ -100,14 +100,19 @@ export class AppComponent extends Observable {
             this.cargaMenu();
             this._router.navigate(["/productos"]);
         }
-        else if (this._router.routerState.snapshot.url.indexOf('producto')) {
+        else if (this._router.routerState.snapshot.url.indexOf('producto') >= 0) {
             this.isInNews = true;
             this._router.navigate(["/noticias"]);
         }
+        else if (this._router.routerState.snapshot.url.indexOf('noticias') >= 0) {
+            this.isInNews = true;
+            this._router.navigate(["/noticias"]);
+        }
+
         else {
             this.routerExtensions.back();
         }
-        if (this._router.routerState.snapshot.url.indexOf('producto') || this._router.routerState.snapshot.url.indexOf('noticias'))
+        if (this._router.routerState.snapshot.url.indexOf('producto') >= 0 || this._router.routerState.snapshot.url.indexOf('noticias') >= 0)
         {
             this.isInNews = true;
         }
@@ -153,6 +158,10 @@ export class AppComponent extends Observable {
                     this._firebaseService.isLoggin = false;
                     this._firebaseService.logout();
                 }
+                else{
+                    this.isInNews = true;        
+                }
+
             });
 
 

@@ -20,6 +20,7 @@ export class NoticiasComponent implements OnInit {
     private counter: number;
     public news: Array<any> = [];
     public _util = new util();
+    isLoading = false;
 
     constructor(private _firebaseService: firebaseService, private _customEvents: customEvents, private page: Page,private _activatedRoute: ActivatedRoute) {
         this.loadNews();
@@ -29,9 +30,11 @@ export class NoticiasComponent implements OnInit {
 
 
     loadNews() {
+        this.isLoading = true;
         if (this._firebaseService.lstNews && this._firebaseService.lstNews.length > 0)
         {
             this.news = this._firebaseService.lstNews;
+            this.isLoading = false;
         }
         else
         {
@@ -40,10 +43,11 @@ export class NoticiasComponent implements OnInit {
     }
 
     loadNewsRefresh() {
-
+        this.isLoading = true;
         this._firebaseService.GetDataLimit("portafolioRss", 20).then((result) => {
             this.news = this._util.objectToArray(result);
             this._firebaseService.lstNews =this._util.objectToArray(result); 
+            this.isLoading = false;
         })
     }
 

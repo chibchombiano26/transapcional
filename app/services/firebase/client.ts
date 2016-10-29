@@ -46,6 +46,23 @@ export class firebaseService implements OnInit {
         firebase.logout();
     }
 
+    resetPassword(email: string) {
+        let promise = new Promise((res, rej) => {
+            firebase.resetPassword({
+                email: email
+            }).then(
+                function () {
+                    dialogs.alert("Por favor, revise su correo electronico, para reestrablecer su contraseña");
+
+                },
+                function (errorMessage) {
+                    dialogs.alert("ha ocurrido un error reestrableciendo su contraseña, intentelo nuevamente, verifique el  correo electronico ingresado");
+                }
+                )
+        })
+        return promise;
+    }
+
 
     initFirebase() {
         let thiz = this;
@@ -76,10 +93,10 @@ export class firebaseService implements OnInit {
             }
             );
         firebase.addOnMessageReceivedCallback((message: any) => {
-            vibrator.vibration(500);
-            dialogs.alert(message).then(() => {
-                console.log("Dialog closed!");
-            });
+            if (message.body) {
+                vibrator.vibration(500);
+                dialogs.alert(message.body);
+            }
         });
     }
 

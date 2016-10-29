@@ -4,6 +4,7 @@ button {
     horizontal-align: center;    
 }
 
+
 .fa {
   font-family: FontAwesome, fontawesome-webfont;
   font-size: 25;
@@ -27,7 +28,7 @@ button {
 } 
 
 ActionBar {
-    background-color:  #2E4E7A;
+    background-color:  #021165;
     color: white;
 }
 
@@ -99,4 +100,6 @@ ActionBar {
     font-size: 12%;
     vertical-align: center;
 }
+
+.loginGrid { background-color: orange; }
 

@@ -1,7 +1,7 @@
 StackLayout {
   margin-left: 30;
   margin-right: 30;
-  padding-bottom: 5;
+  padding-bottom: 15;
   background-color: orange;
   color:#021165;
 }
@@ -18,11 +18,4 @@ Button, TextField {
   background-color: #021165;
   color: white;
   margin-top: 20;
-}
-
-.labelRemind {
-    horizontal-align: center;
-    font-size: 20%;    
-    margin-top: 5;
-    
 }
