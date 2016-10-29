@@ -84,39 +84,40 @@ export class AppComponent extends Observable {
             else {
                 thiz.event();
             }
-
-
         }, 3000);
 
     }
     public goBack() {
-        this.isInNews = false;
-        if (this._router.routerState.snapshot.url.indexOf('detalle') >= 0 && this._firebaseService.detalleSeleccionado != this._firebaseService.detalleSeleccionadoProducto) {
-            this._firebaseService.detalleSeleccionado = this._firebaseService.detalleSeleccionadoProducto;
-            this._customEvents.subject.next(this._firebaseService.detalleSeleccionadoProducto.Lista);
-            this.routerExtensions.back();
-        }
-        else if (this._router.routerState.snapshot.url.indexOf('detalle') >= 0 && this._firebaseService.detalleSeleccionado == this._firebaseService.detalleSeleccionadoProducto) {
-            this.cargaMenu();
-            this._router.navigate(["/productos"]);
-        }
-        else if (this._router.routerState.snapshot.url.indexOf('producto') >= 0) {
-            this.isInNews = true;
-            this._router.navigate(["/noticias"]);
-        }
-        else if (this._router.routerState.snapshot.url.indexOf('noticias') >= 0) {
-            this.isInNews = true;
-            this._router.navigate(["/noticias"]);
-        }
+        if (this._firebaseService.isLoggin) {
+            this.isInNews = false;
+            if (this._router.routerState.snapshot.url.indexOf('detalle') >= 0 && this._firebaseService.detalleSeleccionado != this._firebaseService.detalleSeleccionadoProducto) {
+                this._firebaseService.detalleSeleccionado = this._firebaseService.detalleSeleccionadoProducto;
+                this._customEvents.subject.next(this._firebaseService.detalleSeleccionadoProducto.Lista);
+                this.routerExtensions.back();
+            }
+            else if (this._router.routerState.snapshot.url.indexOf('detalle') >= 0 && this._firebaseService.detalleSeleccionado == this._firebaseService.detalleSeleccionadoProducto) {
+                this.cargaMenu();
+                this._router.navigate(["/productos"]);
+            }
+            else if (this._router.routerState.snapshot.url.indexOf('producto') >= 0) {
+                this.isInNews = true;
+                this._router.navigate(["/noticias"]);
+            }
+            else if (this._router.routerState.snapshot.url.indexOf('noticias') >= 0) {
+                this.isInNews = true;
+                this._router.navigate(["/noticias"]);
+            }
 
+            else {
+                this.routerExtensions.back();
+            }
+            if (this._router.routerState.snapshot.url.indexOf('producto') >= 0 || this._router.routerState.snapshot.url.indexOf('noticias') >= 0) {
+                this.isInNews = true;
+            }
+        }
         else {
-            this.routerExtensions.back();
+            this._router.navigate([""]);
         }
-        if (this._router.routerState.snapshot.url.indexOf('producto') >= 0 || this._router.routerState.snapshot.url.indexOf('noticias') >= 0)
-        {
-            this.isInNews = true;
-        }
-
     }
 
     public refreshNews() {
@@ -139,39 +140,38 @@ export class AppComponent extends Observable {
 
 
     public onItemTap(args) {
-        this.isInNews = false;
-        var navigate: string;
-        this.drawer.toggleDrawerState();
-        navigate = this.myItems[args.index].Navigate;
-        if (navigate == "detalle") {
+        if (this._firebaseService.isLoggin) {
+            this.isInNews = false;
+            var navigate: string;
+            this.drawer.toggleDrawerState();
+            navigate = this.myItems[args.index].Navigate;
+            if (navigate == "detalle") {
 
-            this._firebaseService.detalleSeleccionado = this.myItems[args.index];
-            if (this._firebaseService.detalleSeleccionado.Lista) {
-                this._customEvents.subject.next(this._firebaseService.detalleSeleccionado.Lista);
+                this._firebaseService.detalleSeleccionado = this.myItems[args.index];
+                if (this._firebaseService.detalleSeleccionado.Lista) {
+                    this._customEvents.subject.next(this._firebaseService.detalleSeleccionado.Lista);
+                }
+                this._router.navigate(["/detalle/" + this._firebaseService.detalleSeleccionado.Name]);
             }
-            this._router.navigate(["/detalle/" + this._firebaseService.detalleSeleccionado.Name]);
+            else if (navigate == "salir") {
+                dialogs.confirm("Desea salir de la aplicación").then(result => {
+                    if (result == true) {
+                        this._router.navigate(["/"]);
+                        this._firebaseService.isLoggin = false;
+                        this._firebaseService.logout();
+                    }
+                    else {
+                        this.isInNews = true;
+                    }
+                });
+            }
+            else {
+                this._router.navigate(["/" + navigate]);
+            }
+
+            if (navigate == "noticias")
+                this.isInNews = true;
         }
-        else if (navigate == "salir") {
-            dialogs.confirm("Desea salir de la aplicación").then(result => {
-                if (result == true) {
-                    this._router.navigate(["/"]);
-                    this._firebaseService.isLoggin = false;
-                    this._firebaseService.logout();
-                }
-                else{
-                    this.isInNews = true;        
-                }
-
-            });
-
-
-        }
-        else {
-            this._router.navigate(["/" + navigate]);
-        }
-
-        if (navigate == "noticias")
-            this.isInNews = true;
     }
 
     @ViewChild(RadSideDrawerComponent) public drawerComponent: RadSideDrawerComponent;
@@ -191,7 +191,9 @@ export class AppComponent extends Observable {
     // }
 
     public openDrawer() {
-        this.drawer.toggleDrawerState();
+        if (this._firebaseService.isLoggin) {
+            this.drawer.toggleDrawerState();
+        }
     }
 
 

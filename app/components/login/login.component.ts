@@ -42,11 +42,12 @@ export class LoginComponent implements OnInit {
             console.log(result);
             this._customEvents.isLoggin.next("Loggin");
             this.isLoading = false;
+            this._firebaseService.isLoggin = true;
             this._router.navigate(["/noticias"])
         }, (e) => {
-                dialogs.alert("Verifique Usuario y/o contraseña");
-                this.isLoading = false;
-            });
+            dialogs.alert("Verifique Usuario y/o contraseña");
+            this.isLoading = false;
+        });
     }
     remindPassword() {
         this._router.navigate(["/reset"])

@@ -77,7 +77,7 @@ export class firebaseService implements OnInit {
 
                 }
                 else {
-                    this.isLoggin = false;
+                    thiz.isLoggin = false;
                 }
 
             }
