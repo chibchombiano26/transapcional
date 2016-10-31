@@ -62,8 +62,6 @@ export class firebaseService implements OnInit {
         })
         return promise;
     }
-
-
     initFirebase() {
         let thiz = this;
         firebase.init({
@@ -73,13 +71,10 @@ export class firebaseService implements OnInit {
                 if (data.loggedIn) {
                     console.log("user's email address: " + (data.user.email ? data.user.email : "N/A"));
                     thiz.isLoggin = true;
-
-
                 }
                 else {
                     thiz.isLoggin = false;
                 }
-
             }
 
         }).then(
@@ -124,7 +119,7 @@ export class firebaseService implements OnInit {
     }
 
     GetDataLimit(table, limit): Promise<any> {
-
+        let date = new Date();
         let promise = new Promise((res, rej) => {
             firebase.query(
                 ((result) => {
@@ -134,12 +129,23 @@ export class firebaseService implements OnInit {
                 {
                     singleEvent: true,
                     orderBy: {
-                        type: firebase.QueryOrderByType.KEY
+                        type: firebase.QueryOrderByType.CHILD,
+                        value: 'CreatedAt' // mandatory when type is 'child'
                     },
                     limit: {
                         type: firebase.QueryLimitType.LAST,
                         value: limit
-                    }
+                    },
+                    ranges: [
+                        {
+                            type: firebase.QueryRangeType.START_AT,
+                            value: (date.getDate()-30).toString()
+                        },
+                        {
+                            type: firebase.QueryRangeType.END_AT,
+                            value: date.getDate().toString()
+                        }
+                    ],
                 }
             );
 

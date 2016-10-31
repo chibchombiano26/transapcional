@@ -1,4 +1,4 @@
-import { Component,OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { firebaseService } from "../../services/index";
 import { util } from "../../util/util";
 import { customEvents } from "../../events/customEvent";
@@ -22,8 +22,8 @@ export class NoticiasComponent implements OnInit {
     public _util = new util();
     isLoading = false;
 
-    constructor(private _firebaseService: firebaseService, private _customEvents: customEvents, private page: Page,private _activatedRoute: ActivatedRoute) {
-        this.loadNews();
+    constructor(private _firebaseService: firebaseService, private _customEvents: customEvents, private page: Page, private _activatedRoute: ActivatedRoute) {
+        this.loadNewsRefresh();
         this.page.actionBarHidden = false;
         this.page.actionBar.title = "Noticias";
     }
@@ -31,24 +31,29 @@ export class NoticiasComponent implements OnInit {
 
     loadNews() {
         this.isLoading = true;
-        if (this._firebaseService.lstNews && this._firebaseService.lstNews.length > 0)
-        {
+        if (this._firebaseService.lstNews && this._firebaseService.lstNews.length > 0) {
             this.news = this._firebaseService.lstNews;
             this.isLoading = false;
         }
-        else
-        {
+        else {
             this.loadNewsRefresh();
         }
     }
 
     loadNewsRefresh() {
         this.isLoading = true;
-        this._firebaseService.GetDataLimit("portafolioRss", 20).then((result) => {
+        this._firebaseService.GetDataLimit("noticias", 5).then((result) => {
             this.news = this._util.objectToArray(result);
-            this._firebaseService.lstNews =this._util.objectToArray(result); 
-            this.isLoading = false;
+            this._firebaseService.GetDataLimit("portafolioRss", 20).then((resultnoticias) => {
+                let noticias = this._util.objectToArray(resultnoticias);
+                for (var item of noticias) {
+                    this.news.push(item);
+                }
+                this.isLoading = false;
+            })
         })
+
+
     }
 
     public onItemTap(args) {
@@ -56,24 +61,22 @@ export class NoticiasComponent implements OnInit {
         utilityModule.openUrl(this.news[args.index].Link);
     }
 
-   ngOnInit() {
-       this.page.backgroundImage = "";
+    ngOnInit() {
+        this.page.backgroundImage = "";
 
-    let entityName: string;
-    this._paramSubcription1 = this._activatedRoute.params.subscribe(params => {
-      entityName = params['id'];
-      if (entityName)
-      {
-          this.loadNewsRefresh();
-      }
-      else
-      {
-        this.loadNews();
-      }
-      
+        let entityName: string;
+        this._paramSubcription1 = this._activatedRoute.params.subscribe(params => {
+            entityName = params['id'];
+            if (entityName) {
+                this.loadNewsRefresh();
+            }
+            else {
+                this.loadNews();
+            }
+
+        }
+        );
     }
-    );
-  }
 
 
     public onPullToRefreshInitiated(args: ListViewEventData) {
